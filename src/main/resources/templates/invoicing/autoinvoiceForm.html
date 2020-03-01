@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Auto Invoicing Form</title>
+
+</head>
+<body>
+    <div>
+
+    <div class="col-sm-12" layout:fragment="content">
+        <form>
+            <div >
+                <h4>Invoicing</h4>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Document Type</label>
+                    <select  th:id="stRes" th:name="stRes" class="form-control">
+                        <option value="">Select One</option>
+                        <option th:each="stRes : ${stRes}" th:value="${stRes.code}" th:text="${stRes.name}"  />-->
+                    </select>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Description</label>
+                    <input class="form-control" type="text" />
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Invoicing Criteria</label><br/>
+                    <input  type="radio" th:id="feeStructure" th:name="feeStructure"/>Fee Structure
+                    <input  type="radio" th:id="feeItem" th:name="feeItem"/>Fees Item<br/>
+                </div>
+            </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Currency</label>
+                <select  th:id="curr" th:name="curr" class="form-control">
+                    <option value="">Select One</option>
+                    <option th:each="curr : ${curr}" th:value="${curr.code}" th:text="${curr.name}"  />-->
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Invoicing Date</label>
+                <input type="date" class="form-control"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Exchange Rate</label>
+                <select  th:id="exch" th:name="exch" class="form-control">
+                    <option value="">Select Rate</option>
+                    <option th:each="exch : ${exch}" th:value="${exch.id}" th:text="${exch.rate}" />
+                </select>
+            </div>
+        </div>
+         <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Student Category</label>
+                <select  th:id="stCat" th:name="stCat" class="form-control" onchange="this.form.submit();">
+                    <option value="">Select Category</option>
+                    <option th:each="stdCat : ${stdCat}" th:value="${stdCat.code}" th:text="${stdCat.name}" />
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                 <label>Fiscal Period</label>
+                    <select  th:id="fcal" th:name="fcal" class="form-control">
+                         <option value="">Select Fiscal Period</option>
+                         <option th:each="fcal : ${fcal}" th:value="${fcal.code}" th:text="${fcal.description}" />-->
+                    </select>
+            </div>
+            <div class="form-group col-sm-4">
+                 <label>Period</label>
+                <select  th:id="periods" th:name="periods" class="form-control">
+                    <option value="">Select Fiscal Period</option>
+                    <option th:each="periods : ${periods}" th:value="${periods.code}" th:text="${periods.period}" />-->
+                </select>
+             </div>
+         </div>
+
+         <div class="row">
+             <div class="form-group col-sm-4">
+                 <label>Programme </label>
+                 <select  th:id="prog" th:name="prog" class="form-control">
+                     <option value="">Programme</option>
+                     <option th:each="prog : ${prog}" th:value="${prog.code}" th:text="${prog.description}" />
+                 </select>
+             </div>
+
+             <div class="form-group col-sm-4">
+                <label>Fee Type</label>
+                 <select  th:id="feeType" th:name="feeType" class="form-control">
+                     <option value="">---------</option>
+                     <option th:each="feeType : ${feeType}" th:value="${feeType.type}" th:text="${feeType.comments}" />
+                 </select>
+             </div>
+
+             <div class="form-group col-sm-4">
+                <label>Campus</label >
+                 <select  th:id="campus" th:name="campus" class="form-control">
+                     <option value="">---------</option>
+                     <option th:each="camp : ${camp}" th:value="${camp.code}" th:text="${camp.name}" />
+                 </select>
+             </div>
+         </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Student No</th>
+                            <th>Student Name</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+         <div class="row">
+             <div class="form-group col-sm-4">
+                <label>County Region</label>
+                 <select  th:id="cRegion" th:name="cRegion" class="form-control">
+                     <option value="">Select Country</option>
+                     <option th:each="cRegion : ${cRegion}" th:value="${cRegion.code}" th:text="${cRegion.name}" />-->
+                 </select>
+             </div>
+             <div class="form-group col-sm-4">
+                <label>Section</label>
+                <input type="text" class="form-control"/>
+             </div>
+             <div class="form-group col-sm-4">
+                <label>CoHort</label>
+                <input type="text"  class="form-control"/>
+             </div>
+         </div>
+          <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Category</label>
+                <input type="text"  class="form-control"/>
+            </div>
+
+             <div class="form-group col-sm-4">
+                <label>Year of Study</label>
+                 <select  th:id="academicYear" th:name="academicYear" class="form-control">
+                     <option value="">Select Country</option>
+                     <option th:each="academicYear : ${academicYear}" th:value="${academicYear.code}" th:text="${academicYear.code}" />
+                 </select>
+             </div>
+              <div class="form-group col-sm-4">
+                  <label></label>
+                 <select  th:id="sess" th:name="sess" class="form-control">
+                     <option value="">-----------</option>
+                     <option th:each="sess : ${sess}" th:value="${sess.code}" th:text="${sess.name}" />
+                 </select>
+             </div>
+          </div>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+</form>
+
+</div>
+</div>
+</body>
+<!--<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#cRegion').on('change', function(){
+            var categoryCode = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: demo/loadStatesByCountry/' + categoryCode,
+                success: function(result) {
+                    var result = JSON.parse(result);
+                    var s = '';
+                    for(var i = 0; i < result.length; i++) {
+                        s += '<option value="' + result[i].id + '">' + result[i].name + '</option>';
+                    }
+                    $('#comboboxState').html(s);
+                }
+            });
+        });
+
+    });
+</script>-->
+</html>
+
+
+
+
+

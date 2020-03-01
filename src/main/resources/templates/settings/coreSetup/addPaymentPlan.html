@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Payment Plan</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Fees Payment Plan</h4>
+    </div>
+
+    <form th:object="${paymentPlan}" th:action="@{/settings/feesPaymentPlan/addPaymentPlan}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>Student Category</label>
+                <select class="form-control" th:id="category" th:name="category">
+                    <option value="">...</option>
+                    <option th:each="category : ${categories}" th:value="${category.code}" th:text="${category.code} + ' : ' + ${category.name}"></option>
+                </select>
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Payment Plan Code</label>
+                <input type="text" th:id="code" th:name="code" class="form-control" />
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Description</label>
+                <input type="text" th:id="name" th:name="name" class="form-control"  />
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Mark as Default Plan</label>
+                <input type="checkbox" th:id="defaultPlan" th:name="defaultPlan"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Allowed Minimum</label>
+                <input type="number" th:id="minimum" th:name="minimum" class="form-control" />
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span
+                        class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/fees-payment-plan/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/fees-payment-plan}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

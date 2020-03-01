@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Verify Document Form</title>
+    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+
+    <div class="col-sm-12" layout:fragment="content">
+        <form>
+            <div >
+                <h4>Verify Document</h4>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Document Number</label>
+                    <select id="docNo" name="docNo" class="form-control"  required="required">
+                        <option value="">...</option>
+                        <option  th:value="*{docNo}" th:text="*{docNo}"></option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Document Description</label>
+                    <input class="form-control" type="text" th:id="docDescription" th:name="docDescription"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Document Type</label><br/>
+                    <input class="form-control" type="text" th:id="docType" th:name="docType"/>
+                </div>
+
+                 <div class="form-group col-sm-4">
+                     <label>Student Account</label>
+                    <input class="form-control" type="text" th:id="studentAccount" th:name="studentAccount"/>
+                 </div>
+            </div>
+            <div class="row">
+                 <div class="form-group col-sm-4">
+                     <label>Student Number</label>
+                       <input type="text" class="form-control" th:id="studentnumber" th:name="studentnumber"/>
+                 </div>
+                 <div class="form-group col-sm-4">
+                     <label>Student Name</label>
+                      <input class="form-control" type="text" th:id="name" th:name="name"/>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Academic Year</label>
+                    <input class="form-control" type="text" th:id="accYear" th:name="accYear"/>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Semester/Session</label>
+                    <input class="form-control" type="text" th:id="sem" th:name="sem"/>
+                </div>
+            </div>
+             <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Year of Study</label>
+                    <input class="form-control" type="text" />
+                </div>
+            </div>
+            <fieldset>
+            <legend>Document Entries</legend>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <table border="1">
+                        <thead>
+                        <tr>
+                            <th>Student No</th>
+                            <th>Student Name</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            </fieldset>
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+</form>
+        <div layout:fragment="scripts">
+            <script th:src="@{/resources/node_modules/select2/dist/js/select2.min.js}"></script>
+            <a class="hidden" th:href="@{/reports/transaction}" id="transaction-url"></a>
+            <script>
+                $('#docNo').select2({
+                    placeholder: 'Type to search',
+                    ajax: {
+                        url: $('#transaction-url').attr('href'),
+                        delay: 200,
+                        dataType: 'json',
+                        data: function (params) {
+                            return {
+                                nameOrCode: params.term,
+                                page: params.page || 1
+                            }
+                        },
+                        processResults: function (response) {
+                            console.log(response);
+                            var transactions = response.content.map(function (transaction) {
+                                return {
+                                    id: transaction.docNo,
+                                    text: transaction.docNo + ' : ' + transaction.docDescription
+                                }
+                            });
+
+                            return {
+                                results: transactions,
+                                pagination: {more: !response.last}
+                            };
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
+                    },
+                    minimumInputLength: 1
+                });
+            </script>
+        </div>
+
+</div>
+</div>
+</body>
+
+</html>
+
+
+
+
+

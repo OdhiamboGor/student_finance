@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head >
+
+    <title>Third Parties</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Third Parties</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/thirdParty/addThirdParty}"  class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Third Party
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Payee</th>
+            <td>Account</td>
+            <th colspan="2">Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="thirdParty : ${thirdParty}">
+            <td th:text="${thirdPartyStat.count}"></td>
+            <td th:text="${thirdParty.code}"></td>
+            <td th:text="${thirdParty.name}"></td>
+            <td th:text="${thirdParty.category.name}"></td>
+            <td th:text="${thirdParty.payee}"></td>
+            <td th:text="${thirdParty.account}"></td>
+            <td><a th:href="@{'/settings/thirdParty/editThirdParty/{id}'(id=${thirdParty.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+
+            <td><a th:href="@{'/settings/third-party/{id}'(id=${thirdParty.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Delete</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--<div class="text-center" th:if="${parties.totalPages > 1}">
+        <ul class="pagination">
+            <li  class="page-item" th:each="index: ${#numbers.sequence(1, parties.totalPages )}" th:class="${parties.getNumber() == index - 1? 'active':''}">
+                <a class="page-link" th:href="@{'/settings/third-parties'(page=${index})}" th:text="${index}"></a>
+            </li>
+        </ul>
+    </div>-->
+</div>
+</body>
+</html>

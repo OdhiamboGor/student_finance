@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Currency</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Currencies</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/currency/addCurrency}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Currency
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Prefix</th>
+            <th>Home Currency</th>
+            <th>Enabled</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="currency : ${currency}">
+            <td th:text="${currencyStat.count}"></td>
+            <td th:text="${currency.code}"></td>
+            <td th:text="${currency.name}"></td>
+            <td th:text="${currency.prefix}"></td>
+            <td th:text="${currency.homeCurrency}"></td>
+            <td th:text="${currency.enabled}"></td>
+            <td><a th:href="@{'/settings/currency/editCurrency/{id}'(id=${currency.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Third Party Payments</title>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script>
+        var _data = {};
+
+        var _data = {
+            "HELB":{"HELBL":"LOAN","HLBB":"HELB BURSARY"},
+
+            "CDF":{"E5":"Embakasi","E6":"Emgwen","E6":"Emgwen","E7":"Emuhaya","F1":"Fafi","F2":"Funyula",
+                "G1":"Gachoka","G10":"Githunguri", "G11":"Gwassi", "G2":"Galole",
+                "G3":"Ganze","G4":"Garsen","G5":"Gatanga","G6":"Gatundu North","G7":"Gatundu South",
+                "G8":"Gem","G9":"Gichugu", "H1":"Hamisi", "I1":"Igembe","I2":"Ikolomani","I3":"Isiolo North",
+                "I4":"Isiolo South","J1":"Juja","K1":"Kabete","K10":"Kanduyi","K11":"Kangema","K12":"Kangundo",
+                "K13":"Kapenguria", "K14":"Karachuonyo", "K15":"Kasarani", "K16":"Kasipul Kabondodo", "K17":"Kathiani",
+                "K18":"Keiyo North", "K19":"Keiyo South", "K2":"Kacheliba", "K20":"Kerugoya Kutus", "M37":"Mavoko Constituency",
+                "E8":"EMBAKASI CENTRAL", "K48":"KIAMBU CDF", "E9":"EMBAKASI EAST", "S15":"SAMBURU NORTH CDF","K49":"KILIFI SOUTH CDF",
+                "E10":"ELDAS CDF","C38":"MADERA SOUTH CDF","M38":"MANDERA SOUTH CDF","E11":"EMBAKASI SOUTH CDF",
+                "K50":"KIKUYU CDF", "L12":"LUGARI CDF","K47":"KURIA EAST","R6":"RABAI","K21":"Kiambaa","K22":"Kibwezi",
+                "K23":"Kieni","K24":"Kigumo","K25":"Kiharu","K26":"Kilgoris","K27":"Kilome","K28":"Kimilili","K29":"Kinango",
+                "K3":"Kaiti","K30":"Kinangop","K31":"Kipipiri","K32":"Kipkelion","K33":"Kisauni","K34":"Kisumu Rural",
+                "K35":"Kisumu Town East","K36":"Kisumu Town West","K37":"Kitui Central","K38":"Kitui South","K39":"Kitui West",
+                "K4":"Kajiado Central","K40":"Kitutu Chache","K41":"Kitutu Masaba","K42":"Konoin","K43":"Kuresoi","K44":"Kuria",
+                "K45":"Kwanza","K46":"Kwisero","K5":"Kajiado North","K6":"Kajiado South","K7":"Kaloleni","K8":"Kamukunji",
+                "K9":"Kandara","L1":"LANGATA","L10":"Limuru","L11":"Lurambi","L2":"Laikipia East","L3":"Laikipia West",
+                "L4":"Laisamis","L5":"Lamu East","L6":"Lamu West","L7":"Langata","L8":"Lari","L9":"Likoni","M1":"MATHARE",
+                "M10":"Manyatta","M11":"Maragua","M12":"Marakwet East","M13":"Marakwet West","M14":"Mathioya","M15":"Mathira",
+                "M16":"Matuga","M17":"Matungu","M18":"Mbita","M19":"Mbooni","M2":"Magarini","M20":"Migori","M21":"MBEERE NORTH CDF",
+                "M22":"Molo","M23":"Mosop","M24":"Moyale","M25":"Msambweni","M26":"Mt. Elgon","M27":"Muhoroni","M28":"Mukurweni",
+                "M29":"Mumias","M3":"Makadara","M30":"Mutito","M31":"Mvita","M32":"Mwala","M33":"Mwateta","M34":"Mwea",
+                "M35":"Mwingi North","M36":"Mwingi South","M4":"Makueni","M5":"Malava","M6":"Malindi","M7":"Mandera Central",
+                "M8":"Mandera East","M9":"Mandera West","N1":"Naivasha","N10":"North Horr","N11":"North Imenti","N12":"North Mugirango",
+                "N13":"Ntonyiri","N14":"Nyakach","N17":"Nyaribari Masaba","N18":"Nyatike","N19":"Nyeri","N2":"Nakuru Town",
+                "N3":"Nambale","N4":"Narok North","N5":"Narok South","N6":"Ndaragwa","N7":"Ndhiwa","N8":"Ndia","N9":"Nithi",
+                "O1":"OL'Kalau","O2":"Othaya","R1":"Rangwe","R2":"Rarieda","R3":"Rongai","R4":"Rongo","R5":"Runyenjes","S1":"Sabatia",
+                "S10":"Sotik","S11":"South Imenti","S12":"South Mugirango","S13":"Starehe","S14":"Subukia","S2":"Saboti","S3":"Saku",
+                "S4":"Samburu East","S5":"Samburu West","S6":"Shinyalu","S7":"Siakago","S8":"Sigor","S9":"Sirisia","T1":"Taveta",
+                "T2":"Tetu","T3":"Tharaka","T4":"Tigania East","T5":"Tigania West","T6":"Tinderet","N15":"Nyando","N16":"Nyaribare Chache",
+                "T7":"Turkana Central","T8":"Turkana North","T9":"Turkana South","U1":"Ugenya","U2":"Uriri","V1":"Vihiga","V2":"Voi",
+                "W1":"Wajir East","W2":"Wajir North","W3":"Wajir South","W4":"Wajir West","W5":"Webuye","W6":"West Mugirango",
+                "W7":"Westlands","W8":"Wundanyi","Y1":"Yatta","A1":"Ainamoi","A2":"Aldai","A3":"Alego Usonga","A4":"Amagoro",
+                "B1":"Bahari","B10":"Bondo","B11":"Budalangi","B12":"Bumula","B13":"Bura","B14":"Bureti","B15":"Butere","B16":"Butula",
+                "B2":"Baringo Central","B3":"Baringo East","B4":"Baringo North","B5":"Belgut","B6":"Bobasi","B7":"Bomachoge","B8":"Bomet",
+                "B9":"Bonchari","C1":"Central Imenti","C2":"Changamwe","C3":"Chepalungu","C4":"Cherengani","D1":"Dagoreti","D2":"Dujis",
+                "E1":"EMBAKASI NORTH","E2":"Eldoret East","E3":"Eldoret North","E4":"Eldoret South","K060":"KANJIADO EAST CDF",
+                "T010":"TESO SOUTH CDF","D010":"Dagoretti south cdf","K01":"KIBRA","ROYSAMBU":"ROYSAMBU","E02":"EMBAKASI WEST",
+                "KJW-1":"KAJIADO WEST-CDF","I01":"IJARA CDF","B01":"BALAMBALA CDF","K02":"KAJIADO EAST CDF","TT01":"THIKA TOWN C DF",
+                "MR1":"MANDERA NORTH","EMDR1":"EMURUA DIKIRR","BNSA-1":"BANISA CDF","CDF":"TRBJ1","L01":"LAFEY","E01":"EMBAKASI CENTRAL","MAT01":"MATUNGULU CDF","RYS1":"ROYSAMBU","DG1":"DAGORETTI NORTH",
+                "LGT1":"LANGATA","TB1":"TARBAJ","NH1":"NANDI HILLS","KWZ1":"KIBWEZI WEST","LAD1":"LUANDA","CSMEI-1":"CHESUMEI-CDF","TSS":"Non Government"}};
+    </script>
+</head>
+<body>
+    <div>
+
+    <div class="col-sm-12" layout:fragment="content">
+        <form>
+<!--<form  th:action="@{#}" method="post" autocomplete="off" th:border="2" class="register">-->
+            <div >
+                <h4>IMPORT PAYMENTS</h4>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Batch No</label>
+                    <select  th:id="batchNo" name="batchNo" class="form-control">
+                        <option value="">Select Batches</option>
+                        <option th:each="batches : ${batches}" th:value="${batches.batchNo}" th:text="${batches.batchDescription}"  />
+                    </select>
+                </div>
+            </div>
+
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Receipt Date</label>
+                <input class="form-control" type="text" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Receipt Amount</label>
+                 <input type="text" class="form-control"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Pre-Allocated</label>
+                <input type="text" class="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Available</label>
+                <input type="text" class="form-control"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Current Total</label>
+                <input type="text" class="form-control"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Balance</label>
+                <input type="text" class="form-control"/>
+            </div>
+        </div>
+    <hr/>
+   <!-- <fieldset class="row1">-->
+         <div class="row">
+             <div class="form-group col-sm-4">
+            <label>3rd Party Category</label>
+            <select  th:id="category" th:name="category" path="category" class="form-control">
+                <option value="">--------</option>
+                <option th:each="cat:${category}" th:value="${cat.code}" th:text="${cat.name}" />
+            </select>
+             </div>
+             <div class="form-group col-sm-4">
+                <label>3rd Party Name</label>
+                <select th:id="thirdParty" th:name="thirdParty" path="thirdParty" class="form-control">
+                    <option value="">-- Select --</option>
+                </select>
+             </div>
+        </div>
+
+       <!-- <legend>Student Details </legend>-->
+         <div class="row">
+             <div class="form-group col-sm-4">
+                <label>Academic Year</label>
+                 <select  th:id="acYear" th:name="acYear" path="acYear" class="form-control">
+                     <option value="">--------</option>
+                     <option th:each="ac:${acYears}" th:value="${ac.code}" th:text="${ac.code}" />
+                 </select>
+             </div>
+             <div class="form-group col-sm-4">
+                <label>Session </label>
+                 <select  th:id="ses" th:name="ses" path="ses" class="form-control" >
+                     <option value="">--------</option>
+                     <option th:each="s:${sess}" th:value="${s.code}" th:text="${s.name}" />
+                 </select>
+             </div>
+             <div class="form-group col-sm-4">
+                <label>Batch Description</label >
+                <input type="text" readonly="readonly" class="form-control"  th:id="bdescription" th:name="bdescription"  onclick="desc();" />
+             </div>
+         </div>
+
+         <div class="row">
+             <div class="form-group col-sm-4">
+                <label>Entry Description</label>
+                <input type="text" class="form-control"  th:id="edescription" th:name="edescription" readonly="readonly"  onclick="desc();" />
+             </div>
+             <div class="form-group col-sm-4">
+                <label>Entry Method</label>
+                <input type="text" class="form-control"/>
+             </div>
+             <div class="form-group col-sm-4">
+             Select File to Upload:<input type="file" name="upload" />
+             </div>
+         </div>
+            <hr/>
+            <div class="form-group col-sm-12">
+                <table class="table table-bordered">
+                    <thead>
+
+                        <th>Student No.</th>
+                        <th>Amount</th>
+                        <th>Processed</th>
+                    </thead>
+                    <tbody>
+                        <tr></tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+</form>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#category').on('change', function(e){
+                    var source = $(this),
+                        val = $.trim(source.val()),
+                        target = $('#thirdParty');
+                    $(target).empty();
+                    if(typeof(_data[val]) != "undefined"){
+                        var options = (typeof(_data[val]) != "undefined") ? _data[val] : {};
+                        $('<option>-- Select --</option>').appendTo(target);
+                        $.each( options , function(value, index) {
+                            $('<option value="' + value + '">' + index + '</option>').appendTo(target);
+                        });
+                    }
+
+                });
+            });
+
+            function desc(){
+                var tp= document.getElementById("thirdParty").value;
+                var ay= document.getElementById("acYear").value;
+                var s= document.getElementById("ses").value;
+
+                if (tp == "HELBL"){
+                    tps = "LOAN"
+                    var t= "HELB"+' '+tps+' '+s+' '+ay;
+                }
+                else{
+                    tps = "BURSARY"
+                    var t= "HELB"+' '+tps+' '+s+' '+ay;
+                }
+                document.getElementById("bdescription").value = t;
+                document.getElementById("edescription").value = t;
+            }
+        </script>
+
+</div>
+</div>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Verify Document Form</title>
+    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+
+    <div class="col-sm-18" layout:fragment="content">
+
+        <form th:action="@{/invoicing/autoInvoice/loadInvoices}" method="POST" th:object="${invoiceDetails}">
+
+            <div >
+                <h4>Verify Invoice</h4>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Academic Year</label>
+                    <select th:id="academicYear" th:name="academicYear"  class="form-control" >
+                        <option value="">--------</option>
+                        <option th:each="acad : ${acadYear}" th:value="${acad.code}" th:text="${acad.code}" />
+                    </select>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Session</label>
+                    <select class="form-control"  th:id="semesterCode" th:name="semesterCode" th:field="${invoiceDetails.semesterCode}">
+                        <option value="">--------</option>
+                        <option th:each="ses : ${sess}" th:value="${ses.code}" th:text="${ses.name}" />
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Campus</label><br/>
+                    <select class="form-control"  th:id="campusCode" th:name="campusCode" th:field="${invoiceDetails.campusCode}">
+                        <option value="">---------</option>
+                        <option th:each="camp : ${camp}" th:value="${camp.code}" th:text="${camp.name}" />
+                    </select>
+                </div>
+
+                 <div class="form-group col-sm-4">
+                     <label>Programme</label>
+                     <select class="form-control" th:id="progr" th:name="progr" th:field="${invoiceDetails.programmeCode}">
+                        <option value="">---------</option>
+                        <option th:each="pro : ${prog}" th:value="${pro.code}" th:text="${pro.description}" />
+                     </select>
+                 </div>
+            </div>
+            <div class="row">
+                 <div class="form-group col-sm-4">
+                     <label>Cohort</label>
+                     <select class="form-control" required="required" th:id="coh" th:name="coh" th:field="${invoiceDetails.chtCode}">
+                         <option value="">---------</option>
+                         <option th:each="coh : ${coh}" th:value="${coh.code}" th:text="${coh.name}" />
+                     </select>
+                 </div>
+
+               <div class="form-group col-sm-4">
+                    <label>Type of Invoice</label>
+                    <select class="form-control" required="required" th:id="segCode" th:name="segCode" th:field="${invoiceDetails.segCode}">
+                        <option value="">--------</option>
+                        <option th:each="fseg : ${feeseg}" th:value="${fseg.code}" th:text="${fseg.description}" />
+                    </select>
+                </div>
+            </div>
+            <hr/>
+            <div>
+
+                <button type="submit" class="btn btn-success">Load</button>
+                <button type="submit" class="btn btn-warning">Clear</button>
+
+            </div>
+
+            <hr/>
+            <fieldset>
+            <legend>Document Entries</legend>
+            <div class="row">
+                <div class="form-group col-sm-8">
+
+                    <table border="1">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Invoice No.</th>
+                            <th>Student Name</th>
+                            <th>Invoice Desc</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <div style="padding:5px; color:red;font-style:italic;">
+                            <p class="alert alert-danger" th:if="${error}"><span th:text="${error}"></span></p>
+                        </div>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            </fieldset>
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+        </form>
+       <!-- <div layout:fragment="scripts">
+            <script th:src="@{/resources/node_modules/select2/dist/js/select2.min.js}"></script>
+            <a class="hidden" th:href="@{/reports/transaction}" id="transaction-url"></a>
+            <script>
+                $('#docNo').select2({
+                    placeholder: 'Type to search',
+                    ajax: {
+                        url: $('#transaction-url').attr('href'),
+                        delay: 200,
+                        dataType: 'json',
+                        data: function (params) {
+                            return {
+                                nameOrCode: params.term,
+                                page: params.page || 1
+                            }
+                        },
+                        processResults: function (response) {
+                            console.log(response);
+                            var transactions = response.content.map(function (transaction) {
+                                return {
+                                    id: transaction.docNo,
+                                    text: transaction.docNo + ' : ' + transaction.docDescription
+                                }
+                            });
+
+                            return {
+                                results: transactions,
+                                pagination: {more: !response.last}
+                            };
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
+                    },
+                    minimumInputLength: 1
+                });
+            </script>
+        </div>-->
+
+</div>
+</div>
+</body>
+
+</html>
+
+
+
+
+

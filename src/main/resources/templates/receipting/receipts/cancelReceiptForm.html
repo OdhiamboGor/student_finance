@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>ARMS-EGERTON UNIVERSITY</title>
+    <link rel="stylesheet" type="text/css" href="/css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/table.css"/>
+
+    <style>
+    </style>
+</head>
+<body th:border="1">
+
+<div class="col-sm-12" layout:fragment="content">
+    <form class="register" th:action="@{/receipting/findReceipt}" >
+        <h5 th:align="center">CANCEL RECEIPT</h5>
+        <p></p>
+        <p></p>
+
+        <fieldset>
+            <legend>Receipt Details</legend>
+
+            <p></p>
+
+            <p>
+                <label>Receipt Number:</label>
+                <input type="text" name="receiptNumber" id="receiptNumber"/>
+                <input type = "submit" name = "search" id="search" value="Search" />
+            </p>
+
+            <div th:if="${not #lists.isEmpty(receipt)}">
+                <p th:value="${msg}"></p>
+                <p>
+                    <label>Student Number:</label>
+                    <input type="text" name="studentNumber" disabled="disabled" th:value="${receipt.customerId}" />
+
+                    <label>Name:</label>
+                    <input type="text" name="name"  disabled="disabled" th:value="${receipt.receiptFrom}"/>
+
+                    <label>Academic Year</label>
+                    <input type="text" name="year"  disabled="disabled" th:value="${receipt.academicYear}"/>
+                </p>
+                <p>
+                    <label>Semester</label>
+                    <input type="text" name="semester"  disabled="disabled" th:value="${receipt.semesterSessionCode}"/>
+
+                    <label>Receipt Number</label>
+                    <input type="text"  disabled="disabled" th:value="${receipt.receiptNumber}"/>
+
+                    <label>Bank Name</label>
+                    <input type="text" name="bank"  disabled="disabled" th:value="${bank.name}"/>
+
+                </p>
+
+                <p>
+                    <label>Receipt Type</label>
+                    <input type="text" name="rcpt"  disabled="disabled" th:value="${payeeGroup.name}"/>
+
+                    <label>Mode of Payment</label>
+                    <input type="text" name="mop"  disabled="disabled" th:value="${paymentMode.name}"/>
+
+                    <label>Receipt Date</label>
+                    <input type="text" name="rd"  disabled="disabled" th:value="${receipt.receiptDate}"/>
+                </p>
+
+                <p>
+                    <label>Deposit Date</label>
+                    <input type="text" name="dod"  disabled="disabled" th:value="${receipt.receiptDateUF}"/>
+
+                    <label>Amount</label>
+                    <input type="text" name="amount"  disabled="disabled" th:value="${receipt.receiptAmount}"/>
+
+                    <label>Currencry</label>
+                    <input type="text" name="currency"  disabled="disabled" th:value="${receipt.srCurrency}"/>
+                </p>
+
+                <p>
+                    <label>Posted</label>
+                    <input type="text" name="posted"  disabled="disabled" th:value="${receipt.posted}"/>
+
+                    <label>Status</label>
+                    <input type="text" name="status"  disabled="disabled" th:value="${receipt.receiptSstatus}"/>
+                </p>
+            </div>
+            <div th:if="${#lists.isEmpty(receipt)}">
+                <h2>No entry found!</h2>
+            </div>
+        </fieldset>
+        <p></p>
+        <p></p>
+        <fieldset class="row5" th:border="1">
+            <legend>Transaction</legend>
+            <table >
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Item Code</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="receipt : ${receipt}">
+                    <td class="item-stock" th:text="${receiptStat.count}"></td>
+                    <td class="item-stock" th:text="${receipt.SEGCode}"></td>
+                    <td class="item-stock" th:text="${receipt.SEGDescription}"></td>
+                    <td class="item-price" name="amount" id="amount" th:text="${receipt.homeAmount}" onchange="calculateTotal()"/>
+                </tr>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3"><b>Total</b></td>
+                    <td></td>
+                    <p name="total" id="total"><b></b></p>
+                </tr>
+                </tfoot>
+            </table>
+        </fieldset>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+
+        <div><button class="button">Cancel</button></div>
+        <div><button class="button">Clear</button></div>
+    </form>
+</div>
+<script>
+    function calculateTotal() {
+        let rows = document.querySelectorAll("table tr td:last-child");
+        let sum = 0;
+        for (let i = 0; i &lt; rows.length-1; i++) {
+            sum += Number(rows[i].textContent);
+        }
+
+        document.getElementById("total").textContent = sum;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Charge Items</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Edit Charge Items</h4>
+    </div>
+
+    <form  th:action="@{/settings/chargeItem/editChargeItem/{id}(id=${chargeItem.id})}" th:object="${chargeItem}" method="post">
+        <div class="col-sm-8">
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Segment Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control" th:field="*{code}" th:readonly="readonly"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Segment Name : </label>
+                <input type="text" th:id="name" th:name="name" class="form-control" th:field="*{name}"/>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+            <label>Unit of Measure : </label>
+            <select th:id="unitOfMeasure" th:name="unitOfMeasure" class="form-control" th:field="*{unitOfMeasure}">
+                <option value="">...</option>
+                <option th:each="unitOfMeasure : ${unitOfMeasure}" th:value="${code}" th:text="${unitOfMeasure.name}"></option>
+            </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is Tuition :  </label>
+                <input type="checkbox" th:id="tuition" th:name="tuition" th:field="*{tuition}"/>
+            </div>
+            </div>
+            <div class="row">
+           <div class="form-group col-sm-4">
+                <label>GL Account : </label>
+                <input type="text" th:id="account" th:name="account" class="form-control" th:field="*{account}" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>GL Account Segment Map : </label>
+                <input type="text" th:id="accountMap" th:name="accountMap" class="form-control" th:field="*{accountMap}" />
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Is Pre-Payment :  </label>
+                <input type="checkbox" th:id="payment" th:name="payment" th:field="*{payment}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Auto Insert to Fees Structure :  </label>
+                <input type="checkbox" th:id="autoInsert" th:name="autoInsert" th:field="*{autoInsert}"/>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Default Amount :  </label>
+                <input type="number" th:id="amount" th:name="amount" class="form-control" th:field="*{amount}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Has Segmentation :  </label>
+                <input type="checkbox" th:id="hasSegment" th:name="hasSegment" th:field="*{hasSegment}"/>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Is Scholarship :  </label>
+                <input type="checkbox" th:id="scholarship" th:name="scholarship" th:field="*{scholarship}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Invoiceable :  </label>
+                <input type="checkbox" th:id="invoice" th:name="invoice" th:field="*{invoice}"/>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Account Sets : </label>
+                <select class="form-control" th:field="*{accountSets}">
+                    <option value="">...</option>
+                    <option th:each="accountSets : ${accountSets}" th:value="${accountSets.code}" th:text="${accountSets.description}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Priority :  </label>
+                <input type="number" th:id="priority" th:name="priority" class="form-control" th:field="*{priority}"/>
+            </div>
+            </div>
+
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/chargeItems/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/charge-items}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

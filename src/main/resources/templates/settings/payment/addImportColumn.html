@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Payment Gateway</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Add Payment Gateway</h4>
+    </div>
+
+    <form th:object="${details}" th:action="@{/settings/importColumn/addImportColumn}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>System Column : </label>
+                <input type="text" th:id="sysColumn" th:name="sysColumn" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Gateway Column : </label>
+                <input type="text" th:id="gatewayColumn" th:name="gatewayColumn" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Payment Gateway: </label>
+                <select  th:id="gateway" th:name="gateway" class="form-control" >
+                    <option value="">...</option>
+                    <option th:each="paymentGateway : ${paymentGateway}" th:value="${paymentGateway.code}" th:text="${paymentGateway.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Format: </label>
+                <input type="text" th:id="format" th:name="format" class="form-control" />
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Validate : </label>
+                <input type="checkbox" th:id="validate" th:name="validate"  />
+            </div>
+
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/payment-gateways/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/payment-gateways}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

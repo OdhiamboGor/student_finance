@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Reversal Reasons</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Reversal Reasons</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/reverseReason/addReversalReason}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Reversal Reason
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th colspan="2">Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="reversalReason : ${reversalReason}">
+            <td th:text="${reversalReasonStat.count}"></td>
+            <td th:text="${reversalReason.code}"></td>
+            <td th:text="${reversalReason.name}"></td>
+            <td><a th:href="@{'/settings/reverseReason/editReversalReason/{id}'(id=${reversalReason.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+
+            <td><a th:href="@{'/settings/reverseReason/deleteReversalReason/{id}'(id=${reversalReason.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Delete</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

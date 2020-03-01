@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Limits </title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Limits</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/limit/addLimit}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Bank
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Student Category</th>
+            <th>Third Party</th>
+            <th>Academic Year</th>
+            <th>Session</th>
+            <th>Maximum Amount</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="limit : ${limit}">
+            <td th:text="${limitStat.count}"></td>
+            <td th:text="${limit.studentCategory.code}"></td>
+            <td th:text="${limit.thirdParty.code}"></td>
+            <td th:text="${limit.academicYear.code}"></td>
+            <td th:text="${limit.session.code}"></td>
+            <td th:text="${limit.amount}"></td>
+
+            <td><a th:href="@{'/settings/limit/editLimit/{id}'(id=${limit.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

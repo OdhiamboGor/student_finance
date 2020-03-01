@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Batches</title>
+    <!--<link rel="stylesheet" type="text/css" href="/css/default.css"/>-->
+    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="col-sm-4" layout:fragment="content">
+    <h3>Batches</h3>
+    <div>
+
+        <form th:object="${details}" th:action="@{/quickDocuments/batches/addBatch}" method="post">
+          <div class="col-sm-10">
+            <!--<fieldset class="row1">
+                <legend>Batch Details </legend>-->
+              <hr/>
+                <p>
+                    <label>Batch No. </label>
+
+                    <select id="batches" class="form-control" >
+                        <option value="">...</option>
+                        <option th:each="batch : ${batch}" th:value="${batch.batchNo}" th:text="${batch.batchDescription}"></option>
+                    </select>
+
+                    <label>Document Type </label>
+                    <select class="form-control" >
+                        <option value="">...</option>
+                        <option >Invoice</option>
+                        <option >Debit</option>
+                        <option >Credit</option>
+                    </select>
+                </p>
+
+                <p>
+                    <label>Batch Date </label>
+                    <input type="date" class="form-control"  />
+                    <br/>
+                    <label>Fiscal Period </label>
+                    <input type="text"/>
+                   <!-- &lt;!&ndash; <label class="obinfo">* obligatory fields </label>&ndash;&gt;-->
+                </p>
+           <!-- </fieldset>
+            <fieldset class="row2">
+                <legend>Academic Details </legend>-->
+              <hr/>
+                <div class="form-group">
+                    <label>Student</label>
+                    <select>
+                        <option value="">...</option>
+                        <!--<option th:each="st : ${students}" th:value="${st.accountNumber}" th:text="${st.studentNumber} + ' : ' + ${st.fullName}"></option>-->
+                    </select>
+                </div>
+                <p>
+                    <label>Student </label>
+                    <input type="text" id="studentNumber" name="studentNumber" class="long" onkeyup="searchNumber()"  placeholder="Type number to search.."/>
+                </p>
+                <p></p>
+                <p>
+                    <label>Year of Study</label>
+                    <input type="text" class="form-control" />
+
+                    <label class="optional">Session: </label>
+                    <select class="form-control" >
+                        <option value="">...</option>
+                        <option th:each="s : ${sess}" th:value="${s.code}" th:text="${s.code} + ' : ' + ${s.name}"></option>
+                    </select>
+
+                    <label>Academic Year: </label>
+                    <select class="form-control" >
+                        <option value="">...</option>
+                        <option th:each="ac : ${academicYear}" th:value="${ac.code}" th:text="${ac.code}"></option>
+                    </select>
+                </p>
+                <p></p>
+                <p>
+                    <label>Entry Description</label>
+                    <input type="text" class="form-control" size="20"/>
+
+                    <label>Currency: </label>
+                    <select class="form-control" >
+                        <option value="">...</option>
+                        <option th:each="curr : ${currencies}" th:value="${curr.code}" th:text="${curr.name}"></option>
+                    </select>
+
+                    <label>Exchange Rate </label>
+                    <input type="text" class="form-control" disabled=""/>
+                </p>
+              <hr width="23"/>
+              <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Charge Item</th>
+                      <th scope="col">Account</th>
+                      <th scope="col">Amount</th>
+
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+
+                  </tr>
+                  </tbody>
+               <!-- <p>
+                    <input type="text" class="form-control" />
+                    <label></label>
+                    <input type="text" class="form-control" disabled="disabled"/>
+                    <label></label>
+                    <input type="text" class="form-control" />
+                </p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>-->
+                <p>
+                    <label></label>
+                    <label></label>
+                    <label></label>
+                    <label></label>
+                    <label>Total</label>
+                    <input type="text" class="form-control" disabled="disabled"/>
+                </p>
+              </table>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <div><button class="button">Save&raquo;</button></div>
+            <div><button class="button">Print&raquo;</button></div>
+            <div><button class="button">Email&raquo;</button></div>
+            <div><button class="button">Clear&raquo;</button></div>
+        </div>
+        </form>
+
+</div>
+</div>
+<div layout:fragment="scripts">
+    <script th:src="@{/resources/node_modules/select2/dist/js/select2.min.js}"></script>
+    <a class="hidden" th:href="@{/reports/staff}" id="staff-url"></a>
+    <script>
+        $('#payrollId').select2({
+            placeholder: 'Type to search',
+            ajax: {
+                url: $('#staff-url').attr('href'),
+                delay: 200,
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        payrollId: params.term,
+                        page: params.page || 1
+                    }
+                },
+                processResults: function (response) {
+                    console.log(response);
+                    var staffs = response.content.map(function (staff) {
+                        return {
+                            id: staff.payrollId,
+                            text: staff.payrollId + ' : ' + staff.fullName
+                        }
+                    });
+
+                    return {
+                        results: staffs,
+                        pagination: {more: !response.last}
+                    };
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            },
+            minimumInputLength: 1
+        });
+
+    </script>
+</div>
+</body>
+</html>

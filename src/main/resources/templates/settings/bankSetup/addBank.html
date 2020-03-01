@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Edit Bank</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Banks</h4>
+    </div>
+
+    <form th:object="${bank}" th:action="@{/settings/banks/addBank}" method="post">
+        <div class="col-sm-8">
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Bank Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Bank Name : </label>
+                <input type="text" class="form-control" th:id="name" th:name="name"/>
+
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Account No. : </label>
+                <input type="number" class="form-control" th:id="bankAccount" th:name="bankAccount"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Gl Account : </label>
+                <input type="text" th:id="glAccount" th:name="glAccount" class="form-control"/>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Gateway : </label>
+                <select class="form-control" th:id="gatewayCode" th:name="gatewayCode">
+                    <option value="">...</option>
+                    <option th:each="gateway : ${gateway}" th:value="${gateway.code}" th:text="${gateway.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Currency : </label>
+                <select class="form-control" th:id="currencyCode" th:name="currencyCode" >
+                    <option value="">...</option>
+                    <option th:each="currency : ${currency}" th:value="${currency.code}" th:text="${currency.name}"></option>
+                </select>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Receipt Type : </label>
+                <select class="form-control" th:id="receiptTypeCode" th:name="receiptTypeCode">
+                    <option value="">...</option>
+                    <option th:each="type : ${receiptType}" th:value="${type.code}" th:text="${type.name}"></option>
+                </select>
+            </div>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span
+                        class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/banks/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/banks}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

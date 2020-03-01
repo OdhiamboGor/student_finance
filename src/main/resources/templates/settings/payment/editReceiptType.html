@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Receipt Type</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Receipt Types</h4>
+    </div>
+
+    <form  th:action="@{/settings/receiptType/editReceiptType/{id}(id=${receiptType.id})}" th:object="${receiptType}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control" th:field="*{code}" />
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Description : </label>
+                <input type="text" th:id="name" th:name="name" class="form-control" th:field="*{name}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Payee Group : </label>
+                <select class="form-control" th:field="*{payeeGroup}">
+                    <option value="">...</option>
+                    <option th:each="payeeGroup : ${payeeGroup}" th:value="${receiptType.payeeGroup}" th:text="${payeeGroup.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Fee Item : </label>
+                <select th:id="chargeItem" th:name="chargeItem" class="form-control" th:field="*{chargeItem}">
+                    <option value="">...</option>
+                    <option th:each="chargeItem : ${chargeItem}" th:value="${receiptType.chargeItem}" th:text="${chargeItem.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Account Set</label>
+                <select th:id="accountSet" th:name="accountSet" class="form-control" th:field="*{accountSet}">
+                    <option value="">...</option>
+                    <option th:each="accountSet : ${accountSet}" th:value="${receiptType.accountSet}" th:text="${accountSet.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/receiptType//{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/receipt-types}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Misc Receipt Type</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Edit Misc. Receipt Type</h4>
+    </div>
+
+    <form  th:action="@{/settings/miscReceiptType/editMiscReceiptType/{id}(id=${miscReceiptType.id})}" th:object="${miscReceiptType}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control" th:field="*{code}" />
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Description : </label>
+                <input type="text" th:id="name" th:name="name" class="form-control" th:field="*{name}"/>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Direct : </label>
+                <input type="checkbox" th:id="mode" th:field="*{mode}" th:name="mode" th:value="direct" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Indirect : </label>
+                <input type="checkbox" th:id="mode" th:field="*{mode}" th:name="mode" th:value="indirect" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Unidentified : </label>
+                <input type="checkbox" th:field="*{mode}" th:id="mode" th:name="mode" th:value="Unidentified" />
+            </div>
+
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/misc-receipt-types/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/misc-receipt-types}" class="btn btn-sm btn-warning"> <span  class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

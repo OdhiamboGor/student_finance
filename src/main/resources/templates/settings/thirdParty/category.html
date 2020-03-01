@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Category</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Category</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/category/addCategory}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Category
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="category : ${category}">
+            <td th:text="${categoryStat.count}"></td>
+            <td th:text="${category.code}"></td>
+            <td th:text="${category.name}"></td>
+
+            <td><a th:href="@{'/settings/category/editCategory/{id}'(id=${category.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

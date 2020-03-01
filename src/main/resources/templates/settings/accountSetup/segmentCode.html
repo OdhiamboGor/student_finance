@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Segment Codes</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Segment Codes</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/segmentCode/addSegmentCode}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Segment Code
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Segment</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th colspan="2">Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="code : ${code}">
+            <td th:text="${codeStat.count}"></td>
+            <td th:text="${code.segment.description}"></td>
+            <td th:text="${code.code}"></td>
+            <td th:text="${code.name}"></td>
+            <td><a th:href="@{'/settings/segmentCode/editSegmentCode/{id}'(id=${code.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+            <td><a th:href="@{'/settings/segment-codes/{id}'(id=${code.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Delete</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

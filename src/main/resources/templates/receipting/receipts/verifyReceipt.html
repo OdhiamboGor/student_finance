@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Student Finance</title>
+
+</head>
+<body>
+    <div>
+        <div>
+            <h2>Verify Receipt Form</h2>
+        </div>
+        <div class="col-sm-8" layout:fragment="content">
+            <form th:action="@{/receipting/receipt/transactions}" th:object="${receiptBatch}" method="POST" >
+
+                <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Batch Number:</label>
+                    <select class="form-control" id="batchId" name="batchId" >
+                        <option value="">...</option>
+                        <option th:each="rb : ${rBatch}" th:value="${rb.batchId}" th:text="${rb.batchId} + ' : ' + ${rb.batchDescription}"></option>
+                    </select>
+                    <input type = "submit" name = "search" id="search" value="Search" />
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Batch Owner:</label>
+                    <input type="text" class="form-control" th:id="studentNumber" th:name="studentNumber" readonly="readonly"  />
+                </div>
+                    <div class="form-group col-sm-4">
+                    <label>Batch Date</label>
+                    <input type="text" class="form-control" th:id="batchDate" th:name="batchDate"  readonly="readonly" />
+                    </div>
+                </div>
+
+                <p class="alert alert-warning" th:if="${error}"><span th:text="${error}"></span></p>
+
+                    <div th:if="${#lists.isEmpty(receiptBatch)}">
+                        <p class="alert alert-success" th:if="${error}"><span th:text="${error}"></span></p>
+                    </div>
+                    <hr size="4"/>
+
+                        <table class="col-sm-12 table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Receipt No</th>
+                                <th>Received From</th>
+                                <th>Student Number</th>
+                                <th>Mode</th>
+                                <th>Ref</th>
+                                <th>Receipted On</th>
+                                <th>Deposited On</th>
+                                <th>Amount</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <div>
+                        <button type="submit" class="btn btn-sm btn-success" ><span class="fa fa-check"></span>Verify Receipt
+                        </button>
+                        <button class="button">Refresh</button>
+                    </div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

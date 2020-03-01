@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Edit Account Structure</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Account Structures</h4>
+    </div>
+
+    <form th:object="${accountStructure}" th:action="@{/settings/accountStructure/addAccountStructure}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>Structure Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control"  />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Structure Name : </label>
+                <input type="text" th:id="name" th:name="name" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Account Segment : </label>
+                <input type="text" th:id="segment" th:name="segment" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Delimeter : </label>
+                <select class="form-control" th:id="delimeter" th:name="delimeter">
+                    <option value=" ">...</option>
+                    <option th:value="'/'">/</option>
+                    <option th:value="'-'">-</option>
+                    <option th:value="'|'">|</option>
+                    <option th:value="'.'">.</option>
+                    <option th:value="'_'">.</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/account-structures/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/account-structures}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

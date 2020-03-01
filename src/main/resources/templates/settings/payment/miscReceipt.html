@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Misc. Receipt Types</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Misc. Receipt Types</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/miscReceiptType/addMiscReceiptType}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Receipt Type
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Mode</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="misc : ${receiptType}">
+            <td th:text="${miscStat.count}"></td>
+            <td th:text="${misc.code}"></td>
+            <td th:text="${misc.name}"></td>
+            <td th:text="${misc.mode}"></td>
+            <td><a th:href="@{'/settings/miscReceiptType/editMiscReceiptType/{id}'(id=${misc.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

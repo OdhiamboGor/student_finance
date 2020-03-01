@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Payment Gateway</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Payment Gateways</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/paymentGateway/addPaymentGateway}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Payment Gateway
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Gateway Name</th>
+            <th>Pay Mode</th>
+            <th>Currency</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="paymentGateway : ${paymentGateway}">
+            <td th:text="${paymentGatewayStat.count}"></td>
+            <td th:text="${paymentGateway.code}"></td>
+            <td th:text="${paymentGateway.name}"></td>
+            <td th:text="${paymentGateway.paymentMode.name}"></td>
+            <td th:text="${paymentGateway.currency.code}"></td>
+            <td><a th:href="@{'/settings/paymentGateway/editPaymentGateway/{id}'(id=${paymentGateway.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

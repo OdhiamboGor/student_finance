@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Installments</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Minimum/Maximum Installments</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/installment/addInstallment}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Installment
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-6">
+            <th>No.</th>
+            <th>Minimum</th>
+            <th>Maximum</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-6" th:each="installment : ${installment}">
+            <td th:text="${installmentStat.count}"></td>
+            <td th:text="${installment.minimum}"></td>
+            <td th:text="${installment.maximum}"></td>
+            <td><a th:href="@{'/settings/installment/editInstallment/{id}'(id=${installment.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

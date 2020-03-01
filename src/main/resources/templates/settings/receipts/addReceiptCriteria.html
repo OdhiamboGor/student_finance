@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Receipting Criteria</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Edit Receipting Criteria</h4>
+    </div>
+
+    <form th:object="${receiptingCriteria}" th:action="@{/settings/receiptCriteria/addReceiptCriteria}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>System Mode : </label>
+                <select class="form-control" th:id="sysCode" th:name="sysCode">
+                    <option value="">...</option>
+                    <option th:value="inv">Invoiced Items</option>
+                    <option th:value="dyn">Dynamic Selection</option>
+                    <option th:value="pre">Pre-Payment Charge Item</option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Receipting Mode Code : </label>
+                <input type="text" class="form-control" th:id="code" th:name="code"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Receipting Mode Description : </label>
+                <input type="text" class="form-control" th:id="name" th:name="name"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is Default : </label>
+                <input type="checkbox" th:id="defaultValue" th:name="defaultValue"/>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/receipting-criteria/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/receipting-criteria}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

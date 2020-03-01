@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Process Invoice Form</title>
+    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+
+        function goBackToHomePage() {
+            window.location = "/SpringMultiCheckbox/helloWorld.web";
+        }
+
+        function selectAllCheckBox() {
+
+            if (document.getElementById('checkAll').checked == true) {
+                $('.approval').each(function() {
+                    this.checked = true;
+                });
+            } else {
+                $('.approval').each(function() {
+                    this.checked = false;
+                });
+            }
+
+        }
+    </script>
+
+</head>
+<body>
+<div>
+
+    <div class="col-sm-18" layout:fragment="content">
+
+        <form  action="#" th:action="@{/invoicing/processInvoices/updateInvoice}" th:object="${invoiceDetails}" method="POST"  >
+            <div >
+                <h4>Process Invoice</h4>
+            </div>
+
+
+            <fieldset>
+                <legend>Document Entries</legend>
+                <div class="row">
+                    <div class="form-group col-sm-8">
+                        <table border="1" th:id="invoiceTable" th:name="invoiceTable">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>ID No</th>
+<!--                                <th>Invoice No.</th>-->
+                                <th>Student Name</th>
+                                <th>Invoice Desc</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                               <th>Approvals/ <br/>
+                                    <input th:type="checkbox" th:id="checkAll" th:name="checkAll"  onclick="selectAllCheckBox();"/>Sellect All
+                                </th>
+                                <!--<th> Action</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="col-sm-auto" th:each="invo : ${invoices}" th:size="100px">
+                                <td th:text="${invoStat.count}"></td>
+                                <td th:text="${invo.id}" th:hidden="hidden" th:name="id" th:id="id"></td>
+                                <td th:text="${invo.docNumber}"></td>
+                                <td th:text="${invo.studentNumber}"></td>
+                                <td th:text="${invo.documentDescription}"></td>
+                                <td th:text="${invo.amount}"></td>
+                                <td th:text="${invo.status}"></td>
+                                <td><input type="checkbox" th:name="approval" th:id="approval"/></td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="4" ><b>Total</b></td>
+                                <td colspan="2" th:text="${total}"></td>
+                                <td colspan="2"></td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                           <button type="submit" class="btn btn-success" th:id="updateRecord" th:name="updateRecord">Verify</button>
+                            <button type="submit" class="btn btn-warning">Clear</button>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+
+        </form>
+      <!--<script type="text/javascript">
+            $(function () {
+                //Assign Click event to Button.
+                $("#updateRecord").click(function () {
+                    var message = "";
+                    var x = [];
+
+                    //Loop through all checked CheckBoxes in GridView.
+                    $("#invoiceTable input[type=checkbox]:checked").each(function () {
+                        var row = $(this).closest("tr")[0];
+                        var id = $(this).closest("tr")[0];
+                        message += row.cells[1].innerHTML;
+                        /* message += "   " + row.cells[2].innerHTML;
+                        message += "   " + row.cells[3].innerHTML;*/
+                        message += "\n";
+                        x.push(message);
+
+                    });
+
+                        //Display selected Row data in Alert Box.
+                        alert(message);
+                        //alert(x);
+                });
+            });
+        </script>-->
+    </div>
+</div>
+</body>
+
+</html>
+
+
+
+
+

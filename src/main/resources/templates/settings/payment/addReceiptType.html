@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Receipt Type</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Receipt Types</h4>
+    </div>
+
+    <form th:object="${details}" th:action="@{/settings/receiptType/addReceiptType}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Description : </label>
+                <input type="text" th:id="name" th:name="name" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Payee Group : </label>
+                <select class="form-control" th:id="payeeGroup" th:name="payeeGroup" >
+                    <option value="">...</option>
+                    <option th:each="payeeGroup : ${payeeGroup}" th:value="${payeeGroup.code}" th:text="${payeeGroup.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Fee Item : </label>
+                <select class="form-control" >
+                    <option value="">...</option>
+                    <option th:each="chargeItem : ${chargeItem}" th:value="${chargeItem.code}" th:text="${chargeItem.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Account Set: </label>
+                <select class="form-control">
+                    <option value="">...</option>
+                    <option th:each="accountSet : ${accountSet}" th:value="${accountSet.code}" th:text="${accountSet.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/receipt-types/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/receipt-types}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

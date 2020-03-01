@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Receipting Criteria</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Receipting Criteria List</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/receiptCriteria/addReceiptCriteria}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Receipting Criteria
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Sys Mode</th>
+            <th>Code</th>
+            <th>Description</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="criteria : ${criteria}">
+            <td th:text="${criteriaStat.count}"></td>
+            <td th:text="${criteria.sysCode}"></td>
+            <td th:text="${criteria.code}"></td>
+            <td th:text="${criteria.name}"></td>
+            <td><a th:href="@{'/settings/receiptCriteria/editReceiptCriteria/{id}'(id=${criteria.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

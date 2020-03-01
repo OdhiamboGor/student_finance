@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Segment Mapping</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Gl Segment Mapping</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/segmentMapping/addSegmentMapping}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Segment Mapping
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Segment Type</th>
+            <th>Sys Segment Code</th>
+            <th>Gl Segment Code</th>
+            <th>Segment Name</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="mapping : ${mapping}">
+            <td th:text="${mappingStat.count}"></td>
+            <td th:text="${mapping.name}"></td>
+            <td th:text="${mapping.sysCode}"></td>
+            <td th:text="${mapping.segmentCode.code}"></td>
+            <td th:text="${mapping.segmentCode.name}"></td>
+            <td><a th:href="@{'/settings/segmentMapping/editSegmentMapping/{id}'(id=${mapping.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

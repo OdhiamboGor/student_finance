@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Cancel Receipt</title>
+
+</head>
+<body>
+    <div>
+
+        <div class="col-sm-8" layout:fragment="content">
+            <div>
+                <div>
+                    <h2>Verify Receipt Form</h2>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label>Batch Number:</label>
+                        <select class="form-control" th:id="batchId" th:name="batchId" >
+                            <option value="">...</option>
+                            <option th:each="rb : ${rBatch}" th:value="${rb.batchId}" th:text="${rb.batchId} + ' : ' + ${rb.batchDescription}"></option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="row">
+                 <div class="form-group col-sm-4">
+                    <label>Batch Number:</label>
+                    <input type="text" class="form-control" th:name="batchId" th:id="batchId" readonly="readonly" th:value="${rcptBatch.batchId}"/>
+                 </div>
+                <div class="form-group col-sm-4">
+                    <label>Batch Owner:</label>
+                    <input type="text" class="form-control" th:name="username" th:id="username" readonly="readonly" th:value="${rcptBatch.batchDescription}"/>
+                </div>
+                 <div class="form-group col-sm-4">
+                    <label>Batch Date:</label>
+                    <input type="text" class="form-control" th:name="batchDate" th:id="batchDate" readonly="readonly" th:value="${rcptBatch.batchDate}"/>
+                  </div>
+                </div>
+
+                <p class="alert alert-warning" th:if="${error}"><span th:text="${error}"></span></p>
+
+                    <div th:if="${#lists.isEmpty(verifyReceipt)}">
+                        <p class="alert alert-success" th:if="${error}"><span th:text="${error}"></span></p>
+                    </div>
+                    <hr size="4"/>
+                    <div >
+                        <table class="col-sm-12 table-bordered" th:id="rcpts" onload="calculateTotal()">
+                            <thead >
+                            <tr>
+                                <th>No</th>
+                                <th>Receipt No</th>
+                                <th>Student Number</th>
+                                <th>Received From</th>
+                                <th>Mode</th>
+                                <th>Ref</th>
+                                <th>Receipted On</th>
+                                <th>Deposited On</th>
+                                <th>Amount</th>
+                                <th>Post</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="verifyReceipt : ${verifyReceipt}">
+                                <td class="item" th:text="${verifyReceiptStat.count}" ></td>
+                                <td class="item" th:text="${verifyReceipt.receiptNumber}"></td>
+                                <td class="item" th:text="${verifyReceipt.studentNumber}"></td>
+                                <td class="item" th:text="${verifyReceipt.fullName}"></td>
+                                <td class="item" th:text="${verifyReceipt.paymentMode}"></td>
+                                <td class="item" th:text="${verifyReceipt.username}"></td>
+                                <td class="item" th:text="${verifyReceipt.depositNo}"></td>
+                                <td class="item" th:text="${verifyReceipt.depositDate}"></td>
+                                <td class="item" th:text="${verifyReceipt.amount}"></td>
+                                <td><a th:href="@{'/receipting/receipt/postReceipts/{id}'(id=${verifyReceipt.id})}">
+                                    <button class="btn btn-sm btn-success"><span class="fa fa-edit"></span>Post</button>
+                                </a> </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" ><b>Total</b></td>
+                                <td colspan="2" th:text="${amnt}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                <!--<div>
+
+                    <div>
+                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/> &nbsp;
+                        &nbsp;
+                     <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Post Receipt </button>
+                        &nbsp; &nbsp; &nbsp;<button class="btn btn-sm btn-danger">Cancel</button>
+                        &nbsp; &nbsp; &nbsp;<button class="btn btn-sm btn-warning">Clear</button></div>
+                </div>-->
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

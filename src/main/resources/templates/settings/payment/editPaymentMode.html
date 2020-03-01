@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Edit Modes of Payment</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Modes of Payment</h4>
+    </div>
+
+    <form  th:action="@{/settings/paymentMode/editPaymentMode/{id}(id=${paymentMode.id})}" th:object="${paymentMode}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>System Defined : </label>
+                <select th:id="sysCode" th:name="sysCode" class="form-control" th:field="*{sysCode}">
+                    <option value=" ">...</option>
+                    <option th:value="Q">Cheque</option>
+                    <option th:value="C">Cash</option>
+                    <option th:value="D">Deposit</option>
+                    <option th:value="MO">Money Order</option>
+                    <option th:value="EFT">EFT</option>
+                    <option th:value="AM">Airtel Money</option>
+                    <option th:value="M">Mpesa</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Mode Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control" th:field="*{code}" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Mode Name : </label>
+                <input type="text" th:id="name" th:name="name" class="form-control" th:field="*{name}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Default Reference : </label>
+                <input type="text" th:id="reference" th:name="reference" class="form-control" th:field="*{reference}" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Document No Label : </label>
+                <input type="text" th:id="label" th:name="label" class="form-control" th:field="*{label}" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Document Date Label : </label>
+                <input type="text" th:id="labelDate" th:name="labelDate" class="form-control" th:field="*{labelDate}" />
+            </div>
+
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/modes-of-payment/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/modes-of-payment}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <link th:href="@{/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet" type="text/css"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+
+    <title>Edit Receipt Batch</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Receipt Batch</h4>
+    </div>
+    <p class="alert alert-success" th:if="${error}"><span th:text="${error}"></span></p>
+    <form th:object="${details}" th:action="@{/receipting/receiptBatch/addReceiptBatch}" method="post" >
+        <div class="col-sm-10">
+                <div class="form-group col-sm-4">
+                    <label>Staff : </label>
+                    <select class="form-control" id="userId" name="userId" >
+                        <option value="">...</option>
+                        <option th:each="s : ${staff}" th:value="${s.payrollId}" th:text="${s.payrollId} + ' : ' + ${s.fullName}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Batch Date : </label>
+                    <input type="text" class="form-control" th:id="batchDate" th:name="batchDate" onfocus="(this.type='date')" onblur="(this.type='text')" />
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Batch End: </label>
+                    <input type="number" class="form-control" th:id="batchEnd" th:name="batchEnd" />
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Batch Description : </label>
+                    <textarea rows="2" cols="40" type="text" class="form-control" th:id="batchDescription" th:name="batchDescription"></textarea>
+                </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+
+                <a th:if="${id != null}" th:href="@{'/receipting/receipt-batch/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this record?')">
+                    <span class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/receipting/receipt-batch}" class="btn btn-sm btn-warning">
+                    <span class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+<div layout:fragment="scripts">
+    <script th:src="@{/resources/node_modules/select2/dist/js/select2.min.js}"></script>
+    <a class="hidden" th:href="@{/reports/staff}" id="staff-url"></a>
+    <script>
+        $('#userId').select2({
+            placeholder: 'Type to search',
+            ajax: {
+                url: $('#staff-url').attr('href'),
+                delay: 200,
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        userId: params.term,
+                        page: params.page || 1
+                    }
+                },
+                processResults: function (response) {
+                    console.log(response);
+                    var staffs = response.content.map(function (staff) {
+                        return {
+                            id: staff.payrollId,
+                            text: staff.payrollId + ' : ' + staff.fullName
+                        }
+                    });
+
+                    return {
+                        results: staffs,
+                        pagination: {more: !response.last}
+                    };
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            },
+            minimumInputLength: 1
+        });
+    </script>
+
+</div>
+</body>
+</html>

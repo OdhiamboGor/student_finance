@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Account Structure</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Account Structures</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/accountStructure/addAccountStructure}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Account Structure
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Account Segment</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="structure : ${structure}">
+            <td th:text="${structureStat.count}"></td>
+            <td th:text="${structure.code}"></td>
+            <td th:text="${structure.name}"></td>
+            <td th:text="${structure.segment}"></td>
+            <td><a th:href="@{'/settings/accountStructure/editAccountStructure/{id}'(id=${structure.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

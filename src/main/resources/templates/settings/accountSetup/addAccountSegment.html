@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Edit Segments</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Account Segments</h4>
+    </div>
+
+    <form th:action="@{/settings/accountSegment/addAccountSegment}"  method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4" >
+                <label>Segment No : </label>
+                <input type="number" th:id="number" th:name="number" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Segment Description : </label>
+                <input type="text" th:id="description" th:name="description" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Length : </label>
+                <input type="number" th:id="length" th:name="length" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is Account : </label>
+                <input type="checkbox" th:id="account" th:name="account"/>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/account-segments/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/account-segments}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

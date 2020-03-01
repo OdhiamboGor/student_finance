@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Payment Gateway</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Edit Payment Gateway</h4>
+    </div>
+
+    <form th:object="${details}" th:action="@{/settings/paymentGateway/addPaymentGateway}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Name : </label>
+                <input type="text" th:id="name" th:name="name" class="form-control" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Payment Mode : </label>
+                <select  th:id="paymentMode" th:name="paymentMode" class="form-control" >
+                    <option value="">...</option>
+                    <option th:each="mode : ${paymentMode}" th:value="${mode.code}" th:text="${mode.name}"></option>
+                </select>
+            </div>
+
+
+            <div class="form-group col-sm-4">
+                <label>Currency: </label>
+                <select  th:id="currency" th:name="currency" class="form-control" >
+                    <option value="">...</option>
+                    <option th:each="currency : ${currency}" th:value="${currency.code}" th:text="${currency.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Is Bank? : </label>
+                <input type="checkbox" th:id="bank" th:name="bank"  />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is M-PESA? : </label>
+                <input type="checkbox" th:id="mpesa" th:name="mpesa" />
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is M-PESA Paybill? : </label>
+                <input type="checkbox" th:id="payBill" th:name="payBill"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is Paypal? : </label>
+                <input type="checkbox" th:id="payPal" th:name="payPal"/>
+            </div>
+
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span
+                        class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/payment-gateways/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/payment-gateways}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

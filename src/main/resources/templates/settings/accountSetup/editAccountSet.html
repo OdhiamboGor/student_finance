@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Edit Gl Accounts</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Gl Accounts</h4>
+    </div>
+
+    <form  th:action="@{/settings/accountSet/updateAccountSet/{id}(id=${accountSet.id})}" th:object="${accountSet}" method="post">
+        <div class="col-sm-8">
+
+            <div class="form-group col-sm-4">
+                <label>Account Code : </label>
+                <input type="text" class="form-control" th:id="code" th:name="code" th:field="*{code}"/>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Account Name : </label>
+                <input type="text" class="form-control" th:id="name" th:name="name" th:field="*{name}"/>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Account Number</label>
+                <input type="text" class="form-control" th:id="account" th:name="account" th:field="*{account}"/>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Account Type</label>
+                <input type="text" th:id="systemType" th:name="systemType" class="form-control" th:field="*{systemType}"/>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Account Structure : </label>
+                <select class="form-control" th:id="accountStructure" th:name="accountStructure" th:field="*{accountStructure}">
+                    <option value="">...</option>
+                    <option th:each="structure : ${accountStructure}" th:value="${structure.code}" th:text="${structure.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Account Segment</label>
+                <input type="checkbox" th:id="accountSegment" th:name="accountSegment" class="form-control" th:field="*{accountSegment}"/>
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label>Account Default</label>
+                <input type="checkbox" th:id="defaultAccount" th:name="defaultAccount" class="form-control" th:field="*{defaultAccount}"/>
+            </div>
+
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/global-accounts/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/global-accounts}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+</body>
+</html>

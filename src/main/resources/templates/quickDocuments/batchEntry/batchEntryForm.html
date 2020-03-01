@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Batch Entries</title>
+    <link rel="stylesheet" type="text/css" href="/css/default.css"/>
+</head>
+<body>
+<diV class="col-sm-12" layout:fragment="content">
+    <h3>Batches Entries</h3>
+</diV>
+
+<form th:object="${details}" th:action="@{/quickDocuments/batches/addBatch}" method="post">
+
+    <fieldset class="row1">
+        <legend>Batch Details </legend>
+        <p>
+            <label>Batch No. </label>
+
+           <select id="batches" class="form-control" >
+               <option value="">...</option>
+           </select>
+
+            <label>Document Type </label>
+            <select class="form-control" >
+                <option value="">...</option>
+                <option >Invoice</option>
+                <option >Debit</option>
+                <option >Credit</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Batch Date </label>
+                <input type="date" class="form-control"  />
+            <label>Fiscal Period </label>
+            <input type="text"/>
+           &lt;!&ndash; <label class="obinfo">* obligatory fields </label>&ndash;&gt;
+        </p>
+    </fieldset>
+    <fieldset class="row2">
+        <legend>Academic Details </legend>
+        <div class="form-group">
+            <label>Student</label>
+           <select>
+                <option value="">...</option>
+            </select>
+        </div>
+        <p>
+            <label>Student </label>
+            <input type="text" id="studentNumber" name="studentNumber" class="long" onkeyup="searchNumber()"  placeholder="Type number to search.."/>
+        </p>
+        <p></p>
+        <p>
+            <label>Year of Study</label>
+            <option value="">...</option>
+            <option th:each="yos : ${yearOfStudy}" th:value="${yos.code}" th:text="${yos.name}"></option>
+
+            <label class="optional">Session: </label>
+            <select class="form-control" >
+                <option value="">...</option>
+            </select>
+
+            <label>Academic Year: </label>
+            <select class="form-control" >
+                <option value="">...</option>
+            </select>
+        </p>
+        <p></p>
+        <p>
+            <label>Entry Description</label>
+            <input type="text" class="form-control" size="20"/>
+
+            <label>Currency: </label>
+            <select class="form-control" >
+                <option value="">...</option>
+            </select>
+            <label>Exchange Rate </label>
+            <input type="text" class="form-control" disabled=""/>
+        </p>
+
+    </fieldset>
+
+    <fieldset class="row5">
+        <legend>Transaction</legend>
+
+        <p>
+            <label>Charge Item</label>
+            <label></label>
+            <label>Account</label>
+            <label></label>
+            <label></label>
+            <label>Amount</label>
+
+        </p>
+        <p>
+        <input type="text" class="form-control" />
+            <label></label>
+        <input type="text" class="form-control" disabled="disabled"/>
+            <label></label>
+        <input type="text" class="form-control" />
+        </p>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <p>
+            <label></label>
+            <label></label>
+            <label></label>
+            <label></label>
+            <label>Total</label>
+            <input type="text" class="form-control" disabled="disabled"/>
+        </p>
+    </fieldset>
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <div><button class="button">Save&raquo;</button></div>
+    <div><button class="button">Print&raquo;</button></div>
+    <div><button class="button">Email&raquo;</button></div>
+    <div><button class="button">Clear&raquo;</button></div>
+</form>
+
+</body>
+</html>
+
+
+
+
+

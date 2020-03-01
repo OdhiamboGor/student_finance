@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Exchange Rates</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Exchange Rates</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/exchangeRate/addExchangeRate}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Exchange Rate
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>ID</th>
+            <th>Source</th>
+            <th>Home</th>
+            <th>Rate</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="rate : ${rates}">
+            <td th:text="${rateStat.count}"></td>
+            <td th:text="${rate.id}"></td>
+            <td th:text="${rate.sourceCurrency}"></td>
+            <td th:text="${rate.homeCurrency}"></td>
+            <td th:text="${rate.rate}"></td>
+            <td th:text="${rate.startDate}"></td>
+            <td th:text="${rate.endDate}"></td>
+            <td><a th:href="@{'/settings/exchangeRate/editExchangeRate/{id}'(id=${rate.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

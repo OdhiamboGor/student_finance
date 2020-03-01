@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Import Columns</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Import Columns Table</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/importColumn/addImportColumn}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Import Column
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Group Name</th>
+            <th colspan="2">Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="column : ${column}">
+            <td th:text="${columnStat.count}"></td>
+            <td th:text="${column.gateway.code}"></td>
+            <td th:text="${column.gateway.name}"></td>
+            <td><a th:href="@{'/settings/importColumn/editImportColumn/{id}'(id=${column.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+
+            <td><a th:href="@{'/settings/importColumn/deleteImportColumn/{id}'(id=${column.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Delete</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

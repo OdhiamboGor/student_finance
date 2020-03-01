@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Edit Fees Structure</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Fees Structure</h4>
+    </div>
+
+    <form th:object="${details}" th:action="@{#}" method="post">
+        <div class="col-sm-8">
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Student Category : </label>
+                <select class="form-control" th:field="*{categoryCode}">
+                    <option value="">...</option>
+                    <option th:each="category : ${category}" th:value="${category.code}" th:text="${category.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Programme : </label>
+                <select class="form-control" th:field="*{programmeCode}">
+                    <option value="">...</option>
+                    <option th:each="programme : ${programme}" th:value="${programme.code}" th:text="${programme.code} + ' : ' + ${programme.description}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Fees Type : </label>
+                <select class="form-control" th:field="*{feeType}">
+                    <option value="">...</option>
+                    <option th:value="N">N : New Students</option>
+                    <option th:value="C">C : Continuing Students</option>
+                </select>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Country Region : </label>
+                <select class="form-control" th:field="*{regionCode}">
+                    <option value="">...</option>
+                    <option th:each="region : ${region}" th:value="${region.code}" th:text="${region.code} + ' : ' + ${region.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Section : </label>
+                <select class="form-control" th:field="*{sectionCode}">
+                    <option value="">...</option>
+                    <option th:each="section : ${section}" th:value="${section.code}" th:text="${section.name}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Academic Year : </label>
+                <select class="form-control" th:field="*{academicYearCode}">
+                    <option value="">...</option>
+                    <option th:each="year : ${academicYear}" th:value="${year.code}" th:text="${year.code}"></option>
+                </select>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-sm-4">
+                <label>Period : </label>
+                <select class="form-control" th:field="*{sessionCode}">
+                    <option value="">...</option>
+                    <option th:each="period : ${period}" th:value="${period.code}" th:text="${period.name}"></option>
+                </select>
+            </div>
+            </div>
+            <!--<div class="form-group col-sm-4">
+                <label>Amount : </label>
+                <input type="number" class="form-control" th:field="*{amount}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is Online Application :  </label>
+                <input type="checkbox" th:field="*{application}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is For Graduation :  </label>
+                <input type="checkbox" th:field="*{graduation}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is Penalty :  </label>
+                <input type="checkbox" th:field="*{penalty}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Is Alumni :  </label>
+                <input type="checkbox" th:field="*{alumni}"/>
+            </div>-->
+
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span
+                        class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/fees-structure/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/fees-structure}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

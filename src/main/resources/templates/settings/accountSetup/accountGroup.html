@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Account Groups</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Account Groups</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/accountGroup/addAccountGroup}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Account Group
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Group Code</th>
+            <th>Description</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="group : ${group}">
+            <td th:text="${groupStat.count}"></td>
+            <td th:text="${group.code}"></td>
+            <td th:text="${group.name}"></td>
+            <td><a th:href="@{'/settings/accountGroup/editAccountGroup/{id}'(id=${group.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

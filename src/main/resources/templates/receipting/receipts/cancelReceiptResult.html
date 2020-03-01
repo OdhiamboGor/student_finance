@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Cancel Receipt</title>
+
+</head>
+<body>
+    <div>
+
+        <div class="col-sm-8" layout:fragment="content">
+            <form th:action="@{/receipting/cancelReceipts/cancelReceipt}" th:object="${receipt}" method="post">
+                <div>
+                    <h2>Cancel Receipt Form</h2>
+                </div>
+                <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Receipt Number:</label>
+                    <input type="text" th:name="receiptNumber" th:id="receiptNumber"  th:field="*{receiptNumber}"/>
+                    <input type = "submit" name ="search" id="search" value="Search" />
+                </div>
+                    <div class="form-group col-sm-4">
+                        <label>Batch ID:</label>
+                        <select class="form-control" th:id="batchId" th:name="batchId" >
+                            <option value="">...</option>
+                            <option th:each="rb : ${rBatches}" th:value="${rb.batchId}" th:text="${rb.batchId} + ' : ' + ${rb.batchDescription}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Student Number:</label>
+                    <input type="text" class="form-control" th:name="customerId" th:id="customerId" readonly="readonly" th:field="*{customerId}"/>
+                </div>
+                    <div class="form-group col-sm-4">
+                    <label>Name:</label>
+                    <input type="text" class="form-control" th:name="name" th:id="name" readonly="readonly" th:field="*{receiptFrom}"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                    <label>Academic Year</label>
+                    <input type="text" class="form-control" th:id="academicYear" th:name="academicYear"  readonly="readonly" th:field="*{academicYear}"/>
+                </div>
+                </div>
+                <div class="row">
+                 <div class="form-group col-sm-4">
+                     <label>Semester</label>
+                     <input type="text" class="form-control" th:id="semesterSessionCode" th:name="semesterSessionCode"  readonly="readonly" th:field="*{semesterSessionCode}"/>
+                 </div>
+                    <div class="form-group col-sm-4">
+                     <label>Receipt Number</label>
+                     <input type="text" class="form-control"  th:id="receiptNumber1" th:name="receiptNumber1" readonly="readonly" th:value="${receiptNumber}"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                     <label>Bank Name</label>
+                     <input type="text" class="form-control" th:id="bank" th:name="bank"  readonly="readonly"  th:value="${bank.name}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label>Receipt Type</label>
+                        <input type="text"  class="form-control" th:name="receiptType" th:id="receiptType"  readonly="readonly" th:value="${payeeGroup.name}"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>Mode of Payment</label>
+                        <input type="text"  class="form-control" id="mop" name="mop" readonly="readonly" th:value="${paymentMode.name}"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>Receipt Date</label>
+                        <input type="text" id="receiptDate" name="receiptDate" class="form-control" readonly="readonly" th:field="*{receiptDate}"  />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label>Deposit Date</label>
+                        <input type="text" th:name="receiptDateUF" th:id="receiptDateUF" class="form-control"  readonly="readonly" th:field="*{receiptDateUF}"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>Amount</label>
+                        <input type="text" th:name="rcamount"  th:id="rcamount" class="form-control" readonly="readonly" th:field="*{receiptAmount}"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>Currencry</label>
+                        <input type="text" th:name="homeCurrency"  th:id="homeCurrency" class="form-control" readonly="readonly" th:field="*{homeCurrency}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label>Posted</label>
+                        <input type="text" th:name="posted" th:id="posted" class="form-control" readonly="readonly" th:value="${posts}"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>Status</label>
+                        <input type="text" th:name="receiptSstatus" th:id="receiptSstatus" class="form-control" readonly="readonly" th:field="*{receiptSstatus}" />
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>Cancelled</label>
+                        <input type="number" th:name="cancelled" th:id="cancelled" class="form-control" readonly="readonly" th:default="0"/>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label>Cancel Reason</label>
+                        <select class="form-control" th:id="reason" th:name="reason" >
+                            <option value="">...</option>
+                            <option th:each="rs : ${reason}" th:value="${rs.code}" th:text="${rs.name}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                    <div th:if="${#lists.isEmpty(receipt)}">
+                        <p class="alert alert-success" th:if="${error}"><span th:text="${error}"></span></p>
+                    </div>
+                    <hr size="4"/>
+                    <div >
+                        <table class="col-sm-12 table-bordered">
+                            <thead >
+                            <tr>
+                                <th>No</th>
+                                <th>Item Code</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="receipt : ${receipt}">
+                                <td class="item-stock" th:text="${receiptStat.count}"></td>
+                                <td class="item-stock" th:text="${receipt.SEGCode}"></td>
+                                <td class="item-stock" th:text="${receipt.SEGDescription}"></td>
+                                <td class="item-price" name="pamount" id="pamount" th:text="${receipt.homeAmount}" onchange="calculateTotal()"/>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><b>Total</b></td>
+                                <td th:text="${receipt.homeAmount}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+
+                        <div>
+                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br/> &nbsp;
+                            &nbsp;
+                         <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Cancel Receipt </button>
+                            &nbsp; &nbsp; &nbsp;<button class="btn btn-sm btn-danger">Cancel</button>
+                            &nbsp; &nbsp; &nbsp;<button class="btn btn-sm btn-warning">Clear</button></div>
+                    </div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

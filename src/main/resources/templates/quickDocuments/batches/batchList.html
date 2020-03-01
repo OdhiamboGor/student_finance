@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Batch List</title>
+    <style>
+        table.dataTable thead .sorting:after,
+        table.dataTable thead .sorting:before,
+        table.dataTable thead .sorting_asc:after,
+        table.dataTable thead .sorting_asc:before,
+        table.dataTable thead .sorting_asc_disabled:after,
+        table.dataTable thead .sorting_asc_disabled:before,
+        table.dataTable thead .sorting_desc:after,
+        table.dataTable thead .sorting_desc:before,
+        table.dataTable thead .sorting_desc_disabled:after,
+        table.dataTable thead .sorting_desc_disabled:before {
+            bottom: .5em;
+        }
+    </style>
+</head>
+
+<body th:border="2">
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Batches</h3>
+
+    <div class="form-group">
+        <a th:href="@{/quickDocuments/batches/addBatch}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Batch
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-12">
+            <th>No.</th>
+            <th>Batch No</th>
+            <th>Description</th>
+            <th>Batch Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Entry No</th>
+            <th>Posted Status</th>
+            <th>Post Date</th>
+
+            <th th:colspan="2">Action </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-12" th:each="batch : ${batch}">
+            <td th:text="${batchStat.count}"></td>
+            <td th:text="${batch.batchNo}"></td>
+            <td th:text="${batch.batchDescription}"></td>
+            <td th:text="${batch.batchDate}"></td>
+            <td th:text="${batch.amount}"></td>
+            <td th:text="${batch.status}"></td>
+            <td th:text="${batch.entryNo}"></td>
+            <td th:text="${batch.posted}"></td>
+            <td th:text="${batch.postDate}"></td>
+
+
+            <td><a th:href="@{'/quickDocuments/batches/editBatch/{id}'(id=${batch.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+
+            <td><a th:href="@{'/quickDocuments/batches/deleteBatch/{id}'(id=${batch.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Delete</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center" th:if="${batch.totalPages > 1}">
+        <ul class="pagination">
+            <li  class="page-item" th:each="index: ${#numbers.sequence(1, batch.totalPages )}" th:class="${batch.getNumber() == index - 1? 'active':''}">
+                <a class="page-link" th:href="@{'/quickDocuments/batches/batchList'(page=${index})}" th:text="${index}"></a>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+</body>
+<!--<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dtOrderExample').DataTable({
+            columnDefs: [{
+                orderable: false,
+                targets: 3
+            }]
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>-->
+</html>

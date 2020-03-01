@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Edit Segment Mapping</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Gl Segment Mapping</h4>
+    </div>
+
+    <form  th:action="@{/settings/segmentMapping/editSegmentMapping/{id}(id=${mapping.id})}" th:object="${mapping}" method="post">
+        <div class="col-sm-8">
+            <!--<input type="text" th:id="id" th:name="id" class="form-control" th:field="*{id}" hidden="hidden"/>-->
+            <div class="form-group col-sm-4">
+                <label>Segment Type Code : </label>
+                <select th:id="code" th:name="code" class="form-control" th:field="*{code}">
+                <option value="" >...</option>
+                <option th:value="INST">Institution</option>
+                <option th:value="COL">Colleges</option>
+                <option th:value="CMP">Campus</option>
+                <option th:value="STC">Study Centers</option>
+                <option th:value="SEC">Sections</option>
+                <option th:value="CHT">Cohorts</option>
+                <option th:value="F">Faculties</option>
+                <option th:value="D">Departments</option>
+                <option th:value="STL">Study Levels</option>
+                <option th:value="CAT">Study Categories</option>
+                <option th:value="P">Programmes</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Segment Type Description : </label>
+                <select th:id="name" th:name="name" class="form-control" th:field="*{name}">
+                <option value="">...</option>
+                <option th:value="Institution">Institution</option>
+                <option th:value="College">Colleges</option>
+                <option th:value="Campus">Campus</option>
+                <option th:value="Center">Study Centers</option>
+                <option th:value="Section">Sections</option>
+                <option th:value="Cohorts">Cohorts</option>
+                <option th:value="Faculties">Faculties</option>
+                <option th:value="Departments">Departments</option>
+                <option th:value="Levels">Study Levels</option>
+                <option th:value="Categories">Study Categories</option>
+                <option th:value="Programmes">Programmes</option>
+                </select>
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label>System Segment Code : </label>
+                <input type="text" th:id="sysCode" th:name="sysCode" class="form-control" th:field="*{sysCode}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Mapping Segment : </label>
+                <select th:id="accountSegment" th:name="accountSegment" class="form-control" th:field="*{accountSegment}">
+                    <option value="">...</option>
+                    <option th:each="segment : ${segment}" th:value="${segment.number}" th:text="${segment.description}"></option>
+                </select>
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Mapping Segment Code : </label>
+                <select th:id="segmentCode" th:name="segmentCode" class="form-control" th:field="*{segmentCode}">
+                    <option value="">...</option>
+                    <option th:each="segmentCode : ${segmentCode}" th:value="${segmentCode.code}" th:text="${segmentCode.name}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/segment-mapping/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/segment-mapping}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

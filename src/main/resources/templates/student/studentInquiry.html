@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Student Inquiry</title>
+    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="col-sm-12" layout:fragment="content">
+        <form th:object="${s}" th:action="@{#}" method="post" th:border="2" class="register">
+            <h3>STUDENT INQUIRY</h3>
+            <div>
+            <fieldset class="row1">
+                <div>
+                    <div class="row">
+                        <div class="form-group col-sm-4">
+                            <label>Student Number </label>
+                                <select id="accountNumber" th:field="*{studentNumber}" required="required" class="form-control">
+                                    <option value="">...</option>
+                                    <option th:value="*{studentNumber}" th:text="*{studentNumber + ': ' +fullName}"></option>
+                                </select>
+                             <button type="submit">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <legend>Student Details </legend>
+                        <label>Student Name </label>
+                            <input type="text" class="long" />
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Programme </label>
+                        <input type="text" maxlength="10" />
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Campus</label >
+                        <input type="text" class="long" />
+                </div>
+            </div>
+             <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Status</label>
+                        <input type="text" class="long" />
+                </div>
+                 <div class="form-group col-sm-4">
+                    <label>ID Number</label>
+                    <input type="text" class="long" />
+                 </div>
+                 <div class="form-group col-sm-4">
+                    <label>Study Method</label>
+                     <input type="text" class="long" />
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="form-group col-sm-4">
+                    <label>Category</label>
+                    <input type="text" class="long" />
+                 </div>
+                 <div class="form-group col-sm-4">
+                    <label>Year of Study</label>
+                    <input type="text" class="long" />
+                 </div>
+                 <div class="form-group col-sm-4">
+                    <label>Session</label>
+                    <input type="text" class="long"/>
+                 </div>
+             </div>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+        <hr/>
+            <fieldset class="row5" >
+        <legend>Transactions </legend>
+        <div class="tab">
+            <button class="links" onclick="openLang(event,'invoice')"><b>INVOICE</b></button>
+            <button class="links" onclick="openLang(event,'debit')"><b>DEBIT</b></button>
+            <button class="links" onclick="openLang(event,'receipt')"><b>RECEIPTS</b></button>
+            <button class="links" onclick="openLang(event,'credit')"><b>CREDIT</b></button>
+            <button class="links" onclick="openLang(event,'statement')"><b>STATEMENT</b></button>
+        </div>
+        <!--invoice tab-->
+        <div id="invoice" class="content">
+        <table>
+            <thead>
+            <tr>
+                <td>No</td>
+                <td>Invoice No</td>
+                <td>Description</td>
+                <td>Date</td>
+                <td>Amount</td>
+                <td>Posted</td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Total</b></td>
+                    <td colspan="4"></td>
+                    <td></td>
+                </tr>
+            </tbody>
+
+        </table>
+        </div>
+        <!--debit tab-->
+        <div id="debit" class="content">
+            <table>
+                <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Invoice No</td>
+                    <td>Description</td>
+                    <td>Date</td>
+                    <td>Amount</td>
+                    <td>Posted</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Total</b></td>
+                    <td colspan="4"></td>
+                    <td></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <!--receipt tab-->
+        <div id="receipt" class="content">
+            <table>
+                <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Receipt No</td>
+                    <td>Receipt Date</td>
+                    <td>Deposit Date</td>
+                    <td>Mode</td>
+                    <td>Ref</td>
+                    <td>Amount</td>
+                    <td>Posted</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="6"><b>Total</b></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <!--credit tab-->
+        <div id="credit" class="content">
+            <table>
+                <thead>
+                <tr>
+                    <td>No</td>
+                    <td>Credit No.</td>
+                    <td>Description</td>
+                    <td>Date</td>
+                    <td>Amount</td>
+                    <td>Posted</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Total</b></td>
+                    <td colspan="4"></td>
+                    <td></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <!--statement tab-->
+        <div id="statement" class="content">
+            <table>
+                <thead>
+                <tr>
+                    <td>Reference</td>
+                    <td>Type</td>
+                    <td>Date</td>
+                    <td>Description</td>
+                    <td>Debit</td>
+                    <td>Credit</td>
+                    <td>Balance</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><b>Total</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+
+            </table>
+            <div><button class="button">Print Statement</button></div>
+            <div><button class="button">E-mail Statement</button></div>
+        </div>
+    </fieldset>
+            </div>
+        </form>
+    </div>
+<div layout:fragment="scripts">
+    <script th:src="@{/resources/node_modules/select2/dist/js/select2.min.js}"></script>
+    <a class="hidden" th:href="@{/reports/student}" id="students-url"></a>
+    <script>
+        $('#accountNumber').select2({
+            placeholder: 'Type to search',
+            ajax: {
+                url: $('#students-url').attr('href'),
+                delay: 200,
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        name: params.term,
+                        page: params.page || 1
+                    }
+                },
+                processResults: function (response) {
+                    console.log(response);
+                    var students = response.content.map(function (student) {
+                        return {
+                            id: student.studentNumber,
+                            text: student.studentNumber + ' : ' + student.fullName
+                        }
+                    });
+
+                    return {
+                        results: students,
+                        pagination: {more: !response.last}
+                    };
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            },
+            minimumInputLength: 1
+        });
+    </script>
+</div>
+</div>
+</body>
+</html>
+
+
+
+
+

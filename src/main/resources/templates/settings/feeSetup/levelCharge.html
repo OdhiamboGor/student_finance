@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Level Charges</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Level Charges</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/levelCharge/addLevelCharge}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Level Charges
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Level</th>
+            <th>Region</th>
+            <th>Item</th>
+            <th>Currency</th>
+            <th>Amount</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="levelCharge : ${levelCharge}">
+            <td th:text="${levelChargeStat.count}"></td>
+            <td th:text="${levelCharge.level.name}"></td>
+            <td th:text="${levelCharge.region.name}"></td>
+            <td th:text="${levelCharge.chargeItem.name}"></td>
+            <td th:text="${levelCharge.currency.code}"></td>
+            <td th:text="${levelCharge.amount}"></td>
+            <td><a th:href="@{'/settings/levelCharge/editLevelCharge/{id}'(id=${levelCharge.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--<div class="text-center" th:if="${levelCharges.totalPages > 1}">
+        <ul class="pagination">
+            <li  class="page-item" th:each="index: ${#numbers.sequence(1, levelCharges.totalPages )}" th:class="${levelCharges.getNumber() == index - 1? 'active':''}">
+                <a class="page-link" th:href="@{'/settings/level-charges'(page=${index})}" th:text="${index}"></a>
+            </li>
+        </ul>
+    </div>-->
+</div>
+</body>
+</html>

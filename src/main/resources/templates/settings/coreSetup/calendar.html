@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Calendar</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Fiscal Calendar</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/fiscalCalendar/addFiscalCalendar}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Fiscal Calendar
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-6">
+            <th>No.</th>
+            <th>Year</th>
+            <th>No. of periods</th>
+            <th>Start Month</th>
+            <th>Is Active</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-6" th:each="calendar : ${calendars}">
+            <td th:text="${calendarStat.count}"></td>
+            <td th:text="${calendar.code}"></td>
+            <td th:text="${calendar.period}"></td>
+            <td th:text="${calendar.month}"></td>
+            <td th:text="${calendar.active}"></td>
+            <td><a th:href="@{'/settings/fiscalCalendar/editFiscalCalendar/{id}'(id=${calendar.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

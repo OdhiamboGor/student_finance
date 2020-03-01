@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>Verify Document Form</title>
+    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript">
+
+        function goBackToHomePage() {
+            window.location = "/SpringMultiCheckbox/helloWorld.web";
+        }
+
+        function selectAllCheckBox() {
+
+            if (document.getElementById('checkAll').checked == true) {
+                $('.approval').each(function() {
+                    this.checked = true;
+                });
+            } else {
+                $('.approval').each(function() {
+                    this.checked = false;
+                });
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <div>
+
+    <div class="col-sm-18" layout:fragment="content">
+
+        <form th:action="@{#}" method="POST" th:object="${invoiceDetails}">
+            <div >
+                <h4>Verify Invoice</h4>
+            </div>
+
+            <!--<div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Academic Year</label>
+                    <select id="academicYear" th:name="academicYear" class="form-control"  required="required">
+                        <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+                        <option th:each="acad : ${acadYear}" th:value="${acad.code}" th:text="${acad.code}" />
+                    </select>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label>Session</label>
+                    <select class="form-control" required="required" th:id="semesterCode" th:name="semesterCode">
+                        <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+                        <option th:each="sess : ${sess}" th:value="${sess.code}" th:text="${sess.name}" />
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label>Campus</label><br/>
+                    <select class="form-control"  th:id="campusCode" th:name="campusCode" th:field="${invoice.campusCode}">                        <option value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+                        <option th:each="camp : ${camp}" th:value="${camp.code}" th:text="${camp.name}" />
+                    </select>
+                </div>
+
+                 <div class="form-group col-sm-4">
+                     <label>Programme</label>
+                     <select class="form-control" th:id="progr" th:name="pro" >
+                         <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+                         <option th:each="pro : ${prog}" th:value="${pro.code}" th:text="${pro.description}" />
+                     </select>
+                 </div>
+            </div>
+            <div class="row">
+                 <div class="form-group col-sm-4">
+                     <label>Cohort</label>
+                     <select class="form-control" required="required" th:id="coh" th:name="coh">
+                         <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+                         <option th:each="coh : ${coh}" th:value="${coh.code}" th:text="${coh.name}" />
+                     </select>
+                 </div>
+            </div>-->
+            <hr/>
+
+            <hr/>
+            <fieldset>
+            <legend>Document Entries</legend>
+            <div class="row">
+                <div class="form-group col-sm-8">
+                    <table border="1">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Invoice No.</th>
+                            <th>Student Name</th>
+                            <th>Invoice Desc</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Approvals/ <br/>
+                                <input th:type="checkbox" th:id="checkAll" th:name="checkAll"  onclick="selectAllCheckBox();"/>Sellect All
+                            </th>
+                            <th> Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="col-sm-auto" th:each="inv : ${invo}">
+
+                            <td th:text="${invStat.count}"></td>
+                            <td th:text="${inv.docNumber}"></td>
+                            <td th:text="${inv.studentNumber}" th:id="studentNumber" th:name="studentNumber"></td>
+                            <td th:text="${inv.documentDescription}"></td>
+                            <td th:text="${inv.amount}"></td>
+                            <td th:text="${inv.status}" th:id="status" th:name="status"></td>
+                            <td><input type="checkbox" th:name="approval" th:id="approval" th:class="approval" /></td>
+                            <td>
+                                <a th:href="@{'/invoicing/autoInvoice/updateInvoice/{id}'(id=${inv.studentNumber})}">
+                                    <button class="btn btn-sm btn-success"><span class="fa fa-edit"></span>Verified</button>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" ><b>Total</b></td>
+                            <td colspan="2" th:text="${total}"></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            </fieldset>
+
+
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+        </form>
+        <script type="text/javascript">
+            </script>
+
+
+</div>
+</div>
+</body>
+
+</html>
+
+
+
+
+

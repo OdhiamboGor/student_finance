@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>General Ledger Accounts</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>General Ledger Accounts</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/glAccount/addGlAccount}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Gl Account
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Account Code</th>
+            <th>Account Name</th>
+            <th>Active</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="account : ${accounts}">
+            <td th:text="${accountStat.count}"></td>
+            <td th:text="${account.number}"></td>
+            <td th:text="${account.name}"></td>
+            <td th:text="${account.active}"></td>
+            <td><a th:href="@{'/settings/glAccount/editGlAccount/{id}'(id=${account.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

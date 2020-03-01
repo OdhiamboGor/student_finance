@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Modes of Payment</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Modes of Payment</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/paymentMode/addPaymentMode}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Mode of Payment
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Mode Code</th>
+            <th>Mode Name</th>
+            <th>Reference</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="paymentMode : ${paymentMode}">
+            <td th:text="${paymentModeStat.count}"></td>
+            <td th:text="${paymentMode.code}"></td>
+            <td th:text="${paymentMode.name}"></td>
+            <td th:text="${paymentMode.reference}"></td>
+            <td><a th:href="@{'/settings/paymentMode/editPaymentMode/{id}'(id=${paymentMode.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

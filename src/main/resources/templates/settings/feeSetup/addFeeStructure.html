@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Fees Structure</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Edit Fees Structure</h4>
+    </div>
+
+    <form th:object="${details}" th:action="@{#}" method="post">
+        <div class="col-sm-8">
+            <div class="row">
+
+                <div class="form-group col-sm-4">
+                    <label>Programme : </label>
+                    <select th:id="programme" th:name="programme" class="form-control" >
+                        <option value="">...</option>
+                        <option th:each="programme : ${programme}" th:value="${programme.code}" th:text="${programme.code} + ' : ' + ${programme.description}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Country Region : </label>
+                    <select class="form-control" th:id="region" th:name="region">
+                        <option value="">...</option>
+                        <option th:each="region : ${region}" th:value="${region.code}" th:text="${region.code} + ' : ' + ${region.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Fees Type : </label>
+                    <select class="form-control" th:id="feeType" th:name="feeType">
+                        <option value="">...</option>
+                        <option th:value="N">N : New Students</option>
+                        <option th:value="C">C : Continuing Students</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Section : </label>
+                    <select class="form-control" th:id="section" th:name="section">
+                        <option value="">...</option>
+                        <option th:each="section : ${section}" th:value="${section.code}" th:text="${section.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Student Category : </label>
+                    <select class="form-control" th:id="studentCategory" th:name="studentCategory">
+                        <option value="">...</option>
+                        <option th:each="category : ${category}" th:value="${category.code}" th:text="${category.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Academic Year : </label>
+                    <select class="form-control" th:id="academicYear" th:name="academicYear">
+                        <option value="">...</option>
+                        <option th:each="year : ${academicYear}" th:value="${year.code}" th:text="${year.code}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Year of Study</label>
+                    <select class="form-control" th:id="yearOfStudy" th:name="yearOfStudy">
+                        <option value="">...</option>
+                        <option th:each="yearOfStudy : ${yearOfStudy}" th:value="${yearOfStudy.code}" th:text="${yearOfStudy.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Session</label>
+                    <select class="form-control" th:id="session" th:name="session">
+                        <option value="">...</option>
+                        <option th:each="sess : ${sess}" th:value="${sess.code}" th:text="${sess.name}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Charged Item</label>
+                    <select class="form-control" th:id="chargeItem" th:name="chargeItem">
+                        <option value="">...</option>
+                        <option th:each="chargeItem : ${chargeItem}" th:value="${chargeItem.code}" th:text="${chargeItem.code}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Amount</label>
+                    <input type="number" th:id="amount" th:name="amount" class="form-control" />
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Currency</label>
+                    <select class="form-control" th:id="currency" th:name="currency">
+                        <option value="">...</option>
+                        <option th:each="currency : ${currency}" th:value="${currency.code}" th:text="${currency.code}"></option>
+                    </select>
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Comments</label>
+                    <input type="text" th:id="comments" th:name="comments" class="form-control" />
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Deleted</label>
+                    <input type="checkbox" th:id="deleted" th:name="deleted" class="form-control" />
+                </div>
+
+                <div class="form-group col-sm-4">
+                    <label>Default</label>
+                    <input type="checkbox" th:id="isDefault" th:name="isDefault" class="form-control" />
+                </div>
+
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span
+                        class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/fees-structure/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/fees-structure}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

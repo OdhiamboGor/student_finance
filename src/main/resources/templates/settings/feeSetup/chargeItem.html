@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Charge Items</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Charge Items</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/chargeItem/addChargeItem}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Charge Item
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Unit of Measure</th>
+            <th>GL Account</th>
+            <th>Is Tuition</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="item : ${chargeItem}">
+            <td th:text="${itemStat.count}"></td>
+            <td th:text="${item.code}"></td>
+            <td th:text="${item.name}"></td>
+            <td th:text="${item.unitOfMeasure.name}"></td>
+            <td th:text="${item.account}"></td>
+            <td th:text="${item.tuition}"></td>
+            <td><a th:href="@{'/settings/chargeItem/editChargeItem/{id}'(id=${item.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--<div class="text-center" th:if="${chargeItems.totalPages > 1}">
+        <ul class="pagination">
+            <li  class="page-item" th:each="index: ${#numbers.sequence(1, chargeItems.totalPages )}" th:class="${chargeItems.getNumber() == index - 1? 'active':''}">
+                <a class="page-link" th:href="@{'/settings/charge-items'(page=${index})}" th:text="${index}"></a>
+            </li>
+        </ul>
+    </div>-->
+</div>
+</body>
+</html>

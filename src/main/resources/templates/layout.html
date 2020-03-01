@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/fontawesome/css/fontawesome-all.min.css}" rel="stylesheet" type="text/css"/>
+
+    <title layout:title-pattern="$DECORATOR_TITLE - $CONTENT_TITLE">Student-finance</title>
+</head>
+
+<body>
+<a style="display: none" th:href="@{/}" id="base-url">base url</a>
+<div class="container" layout:fragment="content">
+
+</div>
+
+<script th:src="@{/js/jquery-3.2.1.min.js}" type="text/javascript"></script>
+<!--<script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>-->
+<div layout:fragment="scripts"></div>
+</body>
+</html>

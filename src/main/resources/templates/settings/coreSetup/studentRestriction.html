@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Restrictions</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Student Restrictions</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/studentRestriction/addStudentRestriction}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Student Restriction
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-6">
+            <th>No.</th>
+            <th>Transaction</th>
+            <th>Transaction Code</th>
+            <th>Future Days</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-6" th:each="restriction : ${restriction}">
+            <td th:text="${restrictionStat.count}"></td>
+            <td th:text="${restriction.name}"></td>
+            <td th:text="${restriction.code}"></td>
+            <td th:text="${restriction.futureDays}"></td>
+            <td><a th:href="@{'/settings/studentRestriction/editStudentRestriction/{id}'(id=${restriction.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

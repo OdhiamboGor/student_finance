@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"  layout:decorator="layout">>
+<head>
+    <title>ARMS-EGERTON UNIVERSITY</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="css/default.css"/>
+    <link rel="stylesheet" type="text/css" href="css/table.css"/>
+    <link rel="stylesheet" type="text/css" href="css/tab.css"/>
+    <script src="/js/tab.js"></script>
+    <script src="/js/cascadedDropdown.js"></script>
+    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+
+
+</head>
+<body >
+<div layout:fragment="content">
+
+<div>
+<form  th:action="@{#}" method="post" autocomplete="off" th:border="2" class="register">
+    <h3>IMPORT PAYMENTS</h3>
+    <div>
+    <div >
+        <fieldset class="row1"  >
+            <legend>Change Form</legend>
+          <p>
+            <p>
+                <label>TP Student NO:</label>
+                    <input type="text"></input>
+                <label>TP Student Name:</label>
+                    <input type="text"></input>
+            </p>
+
+            <p>
+                <label>Third Party:</label>
+                    <input type="text"></input>
+            </p>
+           </p>
+        </fieldset>
+    </div>
+        <div >
+            <fieldset class="row1"  >
+                <legend>Change To</legend>
+                <p>
+                <p>
+                    <label>Student NO:</label>
+                    <input type="text" placeholder="Type to Search...."></input>
+                    <label>Student Name:</label>
+                    <input type="text"></input>
+                </p>
+
+                <p>
+                    <label>Student A/C:</label>
+                    <input type="text"></input>
+
+                    <label>Ref No.:</label>
+                    <input type="text"></input>
+                </p>
+
+                <p>
+                    <label>Batch Description:</label>
+                    <input type="text"></input>
+
+                </p>
+                <p>
+                    <label>Entry Description:</label>
+                    <input type="text"></input>
+                </p>
+                <p>
+                    <label>3rd Party Name:</label>
+                    <input type="text"></input>
+                </p>
+
+                <p>
+                    <label>Serial No.:</label>
+                    <input type="text" placeholder="Type to Search...."></input>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <button type="submit">Update</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="submit">Cancel</button>
+                </p>
+                </p>
+            </fieldset>
+        </div>
+
+            <fieldset class="row1">
+
+                <legend>Errors</legend>
+                <div id="invoice">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>No</td>
+                            <td>Receipt No</td>
+                            <td>Ref No</td>
+                            <td>Reg No.</td>
+                            <td>Account No.</td>
+                            <td>Name</td>
+                            <td>Amount</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                        </tbody>
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td colspan="5"></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+
+    </div>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+</form>
+    <script>
+        ("#selectCategory").change(function(){
+            var code = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: "/importPayments/thirdParties/" + code,
+                success: function(data){
+                    var selectThirdParty=$('#selectThirdParty'), option="";
+                    selectThirdParty.empty();
+
+                    for(var i=0; i&lt;data.length; i++){
+                        option = option + "<option value='"+data[i].code + "'>"+data[i].name + "</option>";
+                    }
+                    selectThirdParty.append(option);
+                },
+                error:function(){
+                    alert("error");
+                }
+
+            });
+        });
+    </script>
+</div>
+</div>
+</body>
+</html>
+
+
+
+
+

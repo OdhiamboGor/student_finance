@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Receipt Batch</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Receipt Batch</h3>
+
+    <div class="form-group">
+        <a th:href="@{/receipting/receiptBatch/addReceiptBatch}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Receipt Batch
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Batch Id</th>
+            <th>Batch Description</th>
+            <th>Assigned to</th>
+            <th>Processed</th>
+            <th>Ready</th>
+            <th colspan="2">Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="batch : ${receiptBatch}">
+            <td th:text="${batchStat.count}"></td>
+            <td th:text="${batch.batchId}"></td>
+            <td th:text="${batch.batchDescription}"></td>
+            <td th:text="${batch.username}"></td>
+            <td th:text="${batch.status}"></td>
+            <td></td>
+            <td><a th:href="@{'/receipting/receiptBatch/editReceiptBatch/{id}'(id=${batch.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+
+            <td><a th:href="@{'/receipting/receiptBatch/deleteReceiptBatch/{id}'(id=${batch.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Delete</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+
+   <div class="text-center" th:if="${receiptBatch.totalPages > 1}">
+        <ul class="pagination">
+            <li  class="page-item" th:each="index: ${#numbers.sequence(1, receiptBatch.totalPages )}" th:class="${receiptBatch.getNumber() == index - 1? 'active':''}">
+                <a class="page-link" th:href="@{'/receipting/receiptBatch/receiptBatchList'(page=${index})}" th:text="${index}"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

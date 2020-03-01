@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Edit Segment Codes</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Segment Codes</h4>
+    </div>
+
+    <form th:object="${details}" th:action="@{/settings/segmentCode/addSegmentCode}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>Segment : </label>
+                <select class="form-control" th:id="segment" th:name="segment" >
+                    <option value="">...</option>
+                    <option th:each="segment : ${segment}" th:value="${segment.number}" th:text="${segment.description}"></option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Segment Code : </label>
+                <input type="text" th:id="code" th:name="code" class="form-control" />
+
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Segment Description : </label>
+                <input type="text" th:id="name" th:name="name" class="form-control"/>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span
+                        class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/segmentCodes/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/segment-codes}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

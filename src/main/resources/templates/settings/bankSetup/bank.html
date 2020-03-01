@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+
+    <title>Banks</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Banks</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/banks/addBank}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Bank
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>Bank Code</th>
+            <th>Bank Name</th>
+            <th>Account No.</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="bank : ${banks}">
+            <td th:text="${bankStat.count}"></td>
+            <td th:text="${bank.code}"></td>
+            <td th:text="${bank.name}"></td>
+            <td th:text="${bank.bankAccount}"></td>
+            <td><a th:href="@{'/settings/banks/editBank/{id}'(id=${bank.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

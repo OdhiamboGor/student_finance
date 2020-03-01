@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Batches</title>
+    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Batches</h3>
+    <div>
+
+    <form th:object="${details}" th:action="@{/quickDocuments/batches/addBatch}" method="post">
+        <div class="col-sm-8">
+
+            <div class="form-group col-sm-4">
+                <label>Batch Description: </label>
+                <input type="text" class="form-control" th:id="batchDescription" th:name="batchDescription"/>
+
+            </div>
+
+           <div class="form-group col-sm-4">
+                <label>Batch Date: </label>
+               <input type="text" class="form-control" th:name="batchDate" th:id="batchDate" onfocus="(this.type='date')" onblur="(this.type='text')" />
+            </div>
+
+
+           <!-- <div class="form-group col-sm-4">
+                <label>Batch No. : </label>
+                <input type="text" class="form-control" name="batchNo" id="batchNo"  th:value="${newBatchNumber}"/>
+                <a th:href="@{/quickDocuments/batches/generateNumbers}" class="btn btn-sm btn-warning"> <span class="fa fa-repeat"></span>Generate Number</a>
+            </div>-->
+
+           <div class="form-group col-sm-4">
+                <label>Staff: </label>
+                <select th:id="staff" th:name="staff" class="form-control" required="required">
+                    <option value="">...</option>
+                    <option th:each="staff : ${staff}" th:value="${staff.payrollId}" th:text="${staff.fullName}"></option>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" th:href="@{'/quickDocuments/batches/saveBatch'}"><span class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/quickDocuments/batches/{id}/delete'(id=${id})}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')">
+                    <span class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/quickDocuments/batches}" class="btn btn-sm btn-warning">
+                    <span class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</div>
+<div layout:fragment="scripts">
+    <script th:src="@{/resources/node_modules/select2/dist/js/select2.min.js}"></script>
+    <a class="hidden" th:href="@{/reports/staff}" id="staff-url"></a>
+    <script>
+        $('#payrollId').select2({
+            placeholder: 'Type to search',
+            ajax: {
+                url: $('#staff-url').attr('href'),
+                delay: 200,
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        payrollId: params.term,
+                        page: params.page || 1
+                    }
+                },
+                processResults: function (response) {
+                    console.log(response);
+                    var staffs = response.content.map(function (staff) {
+                        return {
+                            id: staff.payrollId,
+                            text: staff.payrollId + ' : ' + staff.fullName
+                        }
+                    });
+
+                    return {
+                        results: staffs,
+                        pagination: {more: !response.last}
+                    };
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            },
+            minimumInputLength: 1
+        });
+
+    </script>
+</div>
+</body>
+</html>

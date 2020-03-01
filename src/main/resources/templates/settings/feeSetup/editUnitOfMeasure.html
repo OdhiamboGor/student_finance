@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Edit Unit-of-measure</title>
+</head>
+<body>
+
+<div class="col-sm-12" layout:fragment="content">
+    <div class="header mt-2">
+        <h4>Units of Measure</h4>
+    </div>
+
+    <form  th:action="@{/settings/unitOfMeasure/editUnitOfMeasure/{id}(id=${unitOfMeasure.id})}" th:object="${unitOfMeasure}" method="post">
+        <div class="col-sm-8">
+            <div class="form-group col-sm-4">
+                <label>UOM Code</label>
+                <input type="text" th:id="code" th:name="code" class="form-control" th:field="*{code}" th:readonly="readonly"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>UOM Name</label>
+                <input type="text" th:id="name" th:name="name" class="form-control" th:field="*{name}"/>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Recurrence</label>
+                <select th:id="recurrence" th:name="recurrence" class="form-control" th:field="*{recurrence}">
+                    <option value="">...</option>
+                    <option th:value="SEMSESSIONCODE">Per Session</option>
+                    <option th:value="ACADEMICYEAR">Per Academic Year</option>
+                    <option th:value="ONCE">Once</option>
+                    <option th:value="EACH">Each</option>
+                    <option th:value="DAY">Per Day</option>
+                    <option th:value="WEEK">Week</option>
+                    <option th:value="MONTH">Per Month</option>
+                    <option th:value="YEAR">Per Year</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-8">
+                <label>Attached to Units </label>
+                <input type="checkbox" th:id="attachUnits" th:name="attachUnits" th:field="*{attachUnits}"/>
+                <label> mark as attached to units(courses)</label>
+            </div>
+            <div class="form-group col-sm-4">
+                <label>Comments</label>
+                <input type="text" th:id="comments" th:name="comments" class="form-control" th:field="*{comments}" />
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="submit" class="btn btn-sm btn-success" name="submit"><span
+                        class="fa fa-check"></span>Save
+                </button>
+                <a th:if="${id != null}" th:href="@{'/settings/units-of-measure/{id}/delete'(id=${id})}"
+                   class="btn btn-sm btn-danger"
+                   onclick="return confirm('Do you really want to delete this record?')"><span
+                        class="fa fa-trash"> </span>Delete </a>
+                <a th:href="@{/settings/units-of-measure}" class="btn btn-sm btn-warning"> <span
+                        class="fa fa-repeat"></span>Cancel</a>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+</body>
+</html>

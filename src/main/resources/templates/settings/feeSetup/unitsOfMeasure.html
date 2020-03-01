@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="layout">
+<head>
+
+    <title>Units-of-measure</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Units of Measure</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/unitOfMeasure/addUnitsOfMeasure}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Unit of Measure
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-8">
+            <th>No.</th>
+            <th>UOM Code</th>
+            <th>UOM Name</th>
+            <th>UOM Description</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-8" th:each="units : ${units}">
+            <td th:text="${unitsStat.count}"></td>
+            <td th:text="${units.code}"></td>
+            <td th:text="${units.name}"></td>
+            <td th:text="${units.comments}"></td>
+            <td><a th:href="@{'/settings/unitOfMeasure/editUnitOfMeasure/{id}'(id=${units.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

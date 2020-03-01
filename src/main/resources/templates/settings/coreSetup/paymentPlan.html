@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<head>
+    <title>Fees Payment Plan</title>
+</head>
+
+<body>
+<div class="col-sm-12" layout:fragment="content">
+    <h3>Fees Payment Plan</h3>
+
+    <div class="form-group">
+        <a th:href="@{/settings/feesPaymentPlan/addPaymentPlan}" class="btn btn-sm btn-success">
+            <span class="fa fa-plus"></span>Add Fee Payment Plan
+        </a>
+    </div>
+
+    <table class="table table-responsive table-bordered table-striped table-condensed">
+        <thead>
+        <tr class="col-sm-6">
+            <th>No.</th>
+            <th>Term Code</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Is Default</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="col-sm-6" th:each="plan : ${plan}">
+            <td th:text="${planStat.count}"></td>
+            <td th:text="${plan.code}"></td>
+            <td th:text="${plan.name}"></td>
+            <td th:text="${plan.category.code}"></td>
+            <td th:text="${plan.defaultPlan}"></td>
+            <td><a th:href="@{'/settings/feesPaymentPlan/editFeePaymentPlan/{id}'(id=${plan.id})}">
+                <button class="btn btn-sm btn-success"><span class="fa fa-edit">
+                    </span>Edit</button>
+            </a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
