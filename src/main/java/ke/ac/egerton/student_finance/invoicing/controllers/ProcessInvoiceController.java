@@ -189,10 +189,6 @@ public class ProcessInvoiceController {
     @RequestMapping(path = "updateInvoice", method = RequestMethod.POST)
     public String updateInvoice(@ModelAttribute("invoiceDetails")InvoiceDetails invoiceDetails , @RequestParam(value = "id" , required = false) Long[] id , BindingResult bindingResult , Model model) {
 
-        List<Invoice> invoices = invoiceDetails.getInvoices();
-        System.out.println(invoices);
-        System.out.println(id);
-
         /* if(id != null) {
             Invoice invoice = null ;
             for (int i = 0; i < id.length; i++) {
