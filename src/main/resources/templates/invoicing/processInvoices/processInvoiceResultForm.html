@@ -14,22 +14,23 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript">
 
-        function goBackToHomePage() {
-            window.location = "/SpringMultiCheckbox/helloWorld.web";
+        /*function goBackToHomePage() {
+            window.location = "/SpringMultiCheckbox/helloWorld.webinvoicing/processInvoices/processInvoiceForm";
         }
-
+*/
         function selectAllCheckBox() {
 
-            if (document.getElementById('checkAll').checked == true) {
-                $('.approval').each(function() {
-                    this.checked = true;
-                });
-            } else {
-                $('.approval').each(function() {
-                    this.checked = false;
-                });
-            }
-
+            $('#checkAll').change(function(){
+                if($(this).prop('checked')){
+                    $('tbody tr td input[type="checkbox"]').each(function(){
+                        $(this).prop('checked', true);
+                    });
+                }else{
+                    $('tbody tr td input[type="checkbox"]').each(function(){
+                        $(this).prop('checked', false);
+                    });
+                }
+            });
         }
     </script>
 
@@ -43,7 +44,7 @@
             <div >
                 <h4>Process Invoice</h4>
             </div>
-
+            <a href=""></a>
 
             <fieldset>
                 <legend>Document Entries</legend>
@@ -74,7 +75,7 @@
                                 <td th:text="${invo.documentDescription}"></td>
                                 <td th:text="${invo.amount}"></td>
                                 <td th:text="${invo.status}"></td>
-                                <td><input type="checkbox" th:name="approval" th:id="approval"/></td>
+                                <td><input type="checkbox" th:name="approval" th:id="approval"  th:value="${invo.id}" /></td>
 
                             </tr>
                             <tr>
