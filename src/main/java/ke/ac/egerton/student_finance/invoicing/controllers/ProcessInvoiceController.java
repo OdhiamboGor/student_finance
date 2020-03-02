@@ -187,21 +187,12 @@ public class ProcessInvoiceController {
 
 
     @RequestMapping(path = "updateInvoice", method = RequestMethod.POST)
-    public String updateInvoice(@ModelAttribute("invoiceDetails")InvoiceDetails invoiceDetails , @RequestParam(value = "id" , required = false) Long[] id , BindingResult bindingResult , Model model) {
+    @ResponseBody
+    public String updateInvoice(@ModelAttribute InvoiceDetails invoiceDetails , Model model) {
 
-        /* if(id != null) {
-            Invoice invoice = null ;
-            for (int i = 0; i < id.length; i++) {
+      System.out.println(invoiceDetails.getStatus());
 
-                if(InvoiceService.isFound(id[i])) {
-                    invoice = new Invoice();
-                    invoice.setId(id[i]);
-                    invoiceDetails.getInvoices().add(invoice);
 
-            }
-            for (int s = 0; i < invoiceDetails.getInvoices().size(); i++) {
-                System.out.println(invoiceDetails.getInvoices().get(i));
-            }*/
         return "redirect:/invoicing/processInvoices/processInvoiceForm";
         }
 
