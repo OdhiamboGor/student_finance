@@ -59,7 +59,7 @@
     <div>
 
     <div class="col-sm-12" layout:fragment="content">
-        <form>
+        <form th:action="@{'/thirdPartyPayments/importPayments/thirdParties'}" th:object="helbImports" method="post" enctype="multipart/form-data">
 <!--<form  th:action="@{#}" method="post" autocomplete="off" th:border="2" class="register">-->
             <div >
                 <h4>IMPORT PAYMENTS</h4>
