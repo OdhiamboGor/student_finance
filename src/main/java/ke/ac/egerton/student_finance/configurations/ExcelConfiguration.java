@@ -17,7 +17,7 @@ import org.springframework.jdbc.core.RowMapper;
 public class ExcelConfiguration {
 
 
-    @Bean
+    /*@Bean
     ItemReader<ThirdParty> helbImportReader(){
         PoiItemReader<ThirdParty> reader = new PoiItemReader<>();
         reader.setLinesToSkip(1);
@@ -31,5 +31,5 @@ public class ExcelConfiguration {
             rowMapper.setTargetType(ThirdParty.class);
             return rowMapper;
         }
-    }
+    }*/
 }
