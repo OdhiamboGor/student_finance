@@ -12,6 +12,7 @@ import ke.ac.egerton.student_finance.settings.thirdParty.repository.CategoryRepo
 import ke.ac.egerton.student_finance.settings.thirdParty.repository.ThirdPartyRepository;
 import ke.ac.egerton.student_finance.thirdPartyPayments.models.ThirdPartyProcesses;
 import ke.ac.egerton.student_finance.thirdPartyPayments.repositories.ThirdPartyProcessesRepository;
+import ke.ac.egerton.student_finance.thirdPartyPayments.services.HelbImportsService;
 import ke.ac.egerton.student_finance.thirdPartyPayments.services.ThirdPartyPaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,8 @@ public class ImportPaymentsController {
     //Autowired Services
     @Autowired
     ThirdPartyPaymentService thirdPartyPaymentService;
+    @Autowired
+    HelbImportsService helbImportsService;
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -72,59 +75,12 @@ public class ImportPaymentsController {
         return thirdPartyPaymentService.loadThirdPartyProcess(code);
 
     }
-    @RequestMapping(value = "/thirdParties/{code}", method = RequestMethod.GET)
+    /*@RequestMapping(value = "thirdParties/{code}", method = RequestMethod.GET)
     public @ResponseBody  List<ThirdParty> getAllThirdParties(@PathVariable("code") String code) {
         //return thirdPartyRepository.findByCode(code);
         return null;
 
-    }
-
-   /* @PostMapping("/upload-csv-file")
-    public String uploadCSVFile(@RequestParam("file") MultipartFile file, Model model) {
-
-        // validate file
-        if (file.isEmpty()) {
-            model.addAttribute("message", "Please select a CSV file to upload.");
-            model.addAttribute("status", false);
-        } else {
-
-            // parse CSV file to create a list of `User` objects
-            try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
-
-                // create csv bean reader
-                CsvToBean<User> csvToBean = new CsvToBeanBuilder(reader)
-                        .withType(User.class)
-                        .withIgnoreLeadingWhiteSpace(true)
-                        .build();
-
-                // convert `CsvToBean` object to list of users
-                List<User> users = csvToBean.parse();
-
-                // TODO: save users in DB?
-
-                // save users list on model
-                model.addAttribute("users", users);
-                model.addAttribute("status", true);
-
-            } catch (Exception ex) {
-                model.addAttribute("message", "An error occurred while processing the CSV file.");
-                model.addAttribute("status", false);
-            }
-        }
-
-        return "file-upload-status";
     }*/
 
-   /* public <T> List<T> loadObjectList(Class<T> type, String fileName) {
-        try {
-            CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
-            CsvMapper mapper = new CsvMapper();
-            File file = new ClassPathResource(fileName).getFile();
-            MappingIterator<T> readValues =
-                    mapper.reader(type).with(bootstrapSchema).readValues(file);
-            return readValues.readAll();
-        } catch (Exception e) {
-            logger.error("Error occurred while loading object list from file " + fileName, e);
-            return Collections.emptyList();
-        }*/
+
 }
