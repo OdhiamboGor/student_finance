@@ -80,6 +80,7 @@ public class BatchController {
         batchService.saveBatch(batches);
 
         batches.setBatchNo(batches.getId());
+        batches.setPosted(false);
         batchService.saveBatch(batches);
 
         return "redirect:/quickDocuments/batches/batchList";
