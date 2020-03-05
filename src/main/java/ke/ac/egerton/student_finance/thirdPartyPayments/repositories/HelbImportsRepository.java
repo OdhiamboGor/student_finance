@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HelbImportsRepository extends CrudRepository <HelbImports, Long> {
+
 }
