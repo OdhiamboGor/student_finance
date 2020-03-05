@@ -10,7 +10,9 @@ import ke.ac.egerton.student_finance.settings.thirdParty.models.Category;
 import ke.ac.egerton.student_finance.settings.thirdParty.models.ThirdParty;
 import ke.ac.egerton.student_finance.settings.thirdParty.repository.CategoryRepository;
 import ke.ac.egerton.student_finance.settings.thirdParty.repository.ThirdPartyRepository;
+import ke.ac.egerton.student_finance.thirdPartyPayments.models.HelbImports;
 import ke.ac.egerton.student_finance.thirdPartyPayments.models.ThirdPartyProcesses;
+import ke.ac.egerton.student_finance.thirdPartyPayments.repositories.HelbImportsRepository;
 import ke.ac.egerton.student_finance.thirdPartyPayments.repositories.ThirdPartyProcessesRepository;
 import ke.ac.egerton.student_finance.thirdPartyPayments.services.HelbImportsService;
 import ke.ac.egerton.student_finance.thirdPartyPayments.services.ThirdPartyPaymentService;
@@ -18,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.util.List;
 
 @Controller
@@ -37,6 +41,8 @@ public class ImportPaymentsController {
     AcademicYearRepository academicYearRepository;
     @Autowired
     SessionRepository sessionRepository;
+    @Autowired
+    HelbImportsRepository helbImportsRepository;
     
     //Autowired Services
     @Autowired
@@ -45,7 +51,7 @@ public class ImportPaymentsController {
     HelbImportsService helbImportsService;
 
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "importForm", method = RequestMethod.GET)
     public String importPayments(Model model){
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("category", categories);
@@ -67,7 +73,7 @@ public class ImportPaymentsController {
         return "thirdPartyPayments/importPayments";
     }
 
-    @RequestMapping(value = "/loadThirdParty", headers = "Accept=*/*", method = RequestMethod.GET)
+    @RequestMapping(value = "loadThirdParty", headers = "Accept=*/*", method = RequestMethod.GET)
     public @ResponseBody
     List<ThirdPartyProcesses> loadThirdParty(@RequestParam(value = "code", required = true) String code) throws IllegalStateException {
 
@@ -81,6 +87,18 @@ public class ImportPaymentsController {
         return null;
 
     }*/
+    @RequestMapping(value = "importHelb", method = RequestMethod.POST)
+    public String importHelb(@ModelAttribute HelbImports helbImports, RedirectAttributes redirectAttributes){
 
+        boolean isFlag = helbImportsService.uploadHelb(helbImports.getFile());
+        if(isFlag){
+            redirectAttributes.addFlashAttribute("seccessmessage", "File uploaded successfully");
+        }
+        else{
+            redirectAttributes.addFlashAttribute("errormessage", "File not uploaded  successfully");
+        }
 
+        return "redirect:/thirdPartyPayments/importPayments/importForm";
+
+    }
 }
