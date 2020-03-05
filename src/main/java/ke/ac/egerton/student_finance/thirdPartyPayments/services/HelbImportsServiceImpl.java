@@ -27,10 +27,12 @@ public class HelbImportsServiceImpl implements HelbImportsService{
     public boolean uploadHelb(MultipartFile file) {
         boolean isFlag = false;
         String extension  = FilenameUtils.getExtension(file.getOriginalFilename());
-        if(extension.equalsIgnoreCase("xls")||extension.equalsIgnoreCase("xlsx")){
+        if(extension.equalsIgnoreCase("xls")){
+            isFlag = readDataFromExcel(file);
+        }else if(extension.equalsIgnoreCase("xlsx")){
             isFlag = readDataFromExcel(file);
         }
-        return isFlag;
+        return false;
     }
 
     private boolean readDataFromExcel(MultipartFile file) {
