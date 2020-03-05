@@ -71,6 +71,8 @@ public class HelbImports extends AuditableEntity {
     private Integer yearCode;
     @Column(name = "PERIODCODE")
     private String  periodCode;
+
+
     @Transient
     private MultipartFile file;
 
