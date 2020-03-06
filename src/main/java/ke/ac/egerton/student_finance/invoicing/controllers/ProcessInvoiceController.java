@@ -119,7 +119,7 @@ public class ProcessInvoiceController {
 
     @RequestMapping(path = "invoicesProcess", method = RequestMethod.POST)
     public String invoicesProcess(InvoiceDetails invoiceDetails, Model model, RedirectAttributes r, @RequestParam(required = false, defaultValue = "1") int page) {
-        
+
 
         String acYear = invoiceDetails.getAcademicYear();
         //System.out.println(acYear);
@@ -187,13 +187,18 @@ public class ProcessInvoiceController {
 
 
     @RequestMapping(path = "updateInvoice", method = RequestMethod.POST)
-    @ResponseBody
-    public String updateInvoice(@ModelAttribute InvoiceDetails invoiceDetails , Model model) {
+    public String updateInvoice( Model model,Invoice invoice ,BindingResult result,@RequestParam("ids[]") List<Long> ids[]) {
+        ArrayList<ArrayList<Invoice>> selectedInvoice = new ArrayList<ArrayList<Invoice>>();
 
-      System.out.println(invoiceDetails.getStatus());
-
-
-        return "redirect:/invoicing/processInvoices/processInvoiceForm";
+        for (List<Long> id : ids) {
+            if (id != null) {
+                List<Invoice> inv = invoiceRepository.Id(id); // This method should get list of invoices as per row
+                selectedInvoice.add((ArrayList<Invoice>) inv);
+                int no = inv.size();
+                //System.out.println(no);
+                System.out.println(selectedInvoice);
+            }
         }
-
+        return "redirect:/invoicing/processInvoices/processInvoiceForm";
+    }
 }
