@@ -15,7 +15,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     List<Invoice> findBySemesterCodeAndCampusCodeAndProgrammeCodeAndAcademicYearAndChtCodeAndSegCode(String sesss, String campusCode,String program, String acYear, String cHort, String fseg);
 
 
-    List<Invoice> findByAcademicYearAndCampusCodeAndSemesterCodeAndSegCodeAndStatusIsNull(String acYear, String campusCode,String sesss,String segCode);
+    List<Invoice> findByAcademicYearAndCampusCodeAndSemesterCodeAndSegCodeAndApprovedFalseAndStatusIsNull(String acYear, String campusCode,String sesss,String segCode);
 
     Optional<Invoice> findById(Long id);
 
@@ -25,4 +25,5 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     void updateInvoice(@Param("status") String status, @Param("id") long id);
 
 
+    List<Invoice> Id(Long id);
 }
