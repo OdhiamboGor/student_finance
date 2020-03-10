@@ -42,47 +42,6 @@
                 <h4>Verify Invoice</h4>
             </div>
 
-            <!--<div class="row">
-                <div class="form-group col-sm-4">
-                    <label>Academic Year</label>
-                    <select id="academicYear" th:name="academicYear" class="form-control"  required="required">
-                        <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
-                        <option th:each="acad : ${acadYear}" th:value="${acad.code}" th:text="${acad.code}" />
-                    </select>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label>Session</label>
-                    <select class="form-control" required="required" th:id="semesterCode" th:name="semesterCode">
-                        <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
-                        <option th:each="sess : ${sess}" th:value="${sess.code}" th:text="${sess.name}" />
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-4">
-                    <label>Campus</label><br/>
-                    <select class="form-control"  th:id="campusCode" th:name="campusCode" th:field="${invoice.campusCode}">                        <option value="">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
-                        <option th:each="camp : ${camp}" th:value="${camp.code}" th:text="${camp.name}" />
-                    </select>
-                </div>
-
-                 <div class="form-group col-sm-4">
-                     <label>Programme</label>
-                     <select class="form-control" th:id="progr" th:name="pro" >
-                         <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
-                         <option th:each="pro : ${prog}" th:value="${pro.code}" th:text="${pro.description}" />
-                     </select>
-                 </div>
-            </div>
-            <div class="row">
-                 <div class="form-group col-sm-4">
-                     <label>Cohort</label>
-                     <select class="form-control" required="required" th:id="coh" th:name="coh">
-                         <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
-                         <option th:each="coh : ${coh}" th:value="${coh.code}" th:text="${coh.name}" />
-                     </select>
-                 </div>
-            </div>-->
             <hr/>
 
             <hr/>
@@ -94,6 +53,7 @@
                         <thead>
                         <tr>
                             <th>No</th>
+                            <th>ID No.</th>
                             <th>Invoice No.</th>
                             <th>Student Name</th>
                             <th>Invoice Desc</th>
@@ -109,12 +69,13 @@
                         <tr class="col-sm-auto" th:each="inv : ${invo}">
 
                             <td th:text="${invStat.count}"></td>
+                            <td th:text="${inv.id}"></td>
                             <td th:text="${inv.docNumber}"></td>
                             <td th:text="${inv.studentNumber}" th:id="studentNumber" th:name="studentNumber"></td>
                             <td th:text="${inv.documentDescription}"></td>
                             <td th:text="${inv.amount}"></td>
                             <td th:text="${inv.status}" th:id="status" th:name="status"></td>
-                            <td><input type="checkbox" th:name="approval" th:id="approval" th:class="approval" /></td>
+                            <td><input type="checkbox" th:name="approval" th:id="approval" th:class="approval" th:value="${inv.id}"/></td>
                             <td>
                                 <a th:href="@{'/invoicing/autoInvoice/updateInvoice/{id}'(id=${inv.studentNumber})}">
                                     <button class="btn btn-sm btn-success"><span class="fa fa-edit"></span>Verified</button>
