@@ -32,7 +32,7 @@ public class HelbImportsServiceImpl implements HelbImportsService{
         }else if(extension.equalsIgnoreCase("xlsx")){
             isFlag = readDataFromExcel(file);
         }
-        return false;
+        return isFlag;
     }
 
     private boolean readDataFromExcel(MultipartFile file) {
