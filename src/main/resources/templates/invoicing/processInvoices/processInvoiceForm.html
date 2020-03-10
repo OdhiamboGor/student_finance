@@ -46,14 +46,14 @@
             <div class="row">
                 <div class="form-group col-sm-4">
                     <label>Academic Year</label>
-                    <select th:id="academicYear" th:name="academicYear"  class="form-control" >
+                    <select th:id="academicYear" th:name="academicYear"  class="form-control" required="required">
                         <option value="">--------</option>
                         <option th:each="acad : ${acadYear}" th:value="${acad.code}" th:text="${acad.code}" />
                     </select>
                 </div>
                 <div class="form-group col-sm-4">
                     <label>Session</label>
-                    <select class="form-control"  th:id="semesterCode" th:name="semesterCode" >
+                    <select class="form-control"  th:id="semesterCode" th:name="semesterCode" required="required">
                         <option value="">--------</option>
                         <option th:each="ses : ${sess}" th:value="${ses.code}" th:text="${ses.name}" />
                     </select>
@@ -62,14 +62,14 @@
             <div class="row">
                 <div class="form-group col-sm-4">
                     <label>Campus</label><br/>
-                    <select class="form-control"  th:id="campusCode" th:name="campusCode" >
+                    <select class="form-control"  th:id="campusCode" th:name="campusCode" required="required">
                         <option value="">---------</option>
                         <option th:each="camp : ${camp}" th:value="${camp.code}" th:text="${camp.name}" />
                     </select>
                 </div>
                 <div class="form-group col-sm-4">
                     <label>Invoice Type</label><br/>
-                    <select class="form-control"  th:id="segCode" th:name="segCode" >
+                    <select class="form-control"  th:id="segCode" th:name="segCode" required="required">
                         <option value="">---------</option>
                         <option th:each="fee : ${feeseg}" th:value="${fee.code}" th:text="${fee.description}" />
                     </select>
@@ -87,6 +87,12 @@
             <hr/>
             <fieldset>
                 <legend>Document Entries</legend>
+                <div class="alert-danger alert-dismissible fade show" role="alert" th:if="${error}">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong th:text="${error}"></strong>
+                </div>
                 <div class="row">
                     <div class="form-group col-sm-8">
                         <table border="1">
@@ -128,6 +134,7 @@
 
                             </tfoot>
                         </table>
+
                     </div>
                 </div>
             </fieldset>
