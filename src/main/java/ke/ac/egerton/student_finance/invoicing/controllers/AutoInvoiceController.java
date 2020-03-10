@@ -34,6 +34,9 @@ import ke.ac.egerton.student_finance.settings.period.repositories.SFPeriodReposi
 import ke.ac.egerton.student_finance.settings.period.services.SFPeriodService;
 import ke.ac.egerton.student_finance.student.repository.StudentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -215,7 +218,7 @@ public class AutoInvoiceController {
         String total = numberFormat.format(totalAmount);
         model.addAttribute("total", total);
 
-        int rec = invoices.size();
+        //int rec = invoices.size();
         //System.out.print(rec);
 
         //Check if list is empty
@@ -224,6 +227,18 @@ public class AutoInvoiceController {
             return "redirect:/invoicing/autoInvoice/verifyInvoice";
 
         }
+
+        int pageNumber = 1 ;
+        int size = 1 ;
+        PageRequest page = new PageRequest(pageNumber, size);
+       // List<Article> articlesList = articleTypedQuery.getResultList();
+        int start = page.getOffset();
+        int end = (start + page.getPageSize()) > invoices .size() ? invoices .size() : (start + page.getPageSize());
+        int totalRows = invoices .size();
+        Page<Invoice> pageToReturn = new PageImpl<Invoice>(invoices .subList(start, end), page, totalRows);
+
+
+
 
         model.addAttribute("invo", invoices);
 
@@ -249,6 +264,11 @@ public class AutoInvoiceController {
 
     @RequestMapping(path = "updateInvoice/{id}", method = RequestMethod.POST)
     public String updateInvoice(@PathVariable Long id, InvoiceDetails invoiceDetails, RedirectAttributes r, Model model){
+
+
+
+
+
         Invoice invoice = invoiceRepository.findOne(id);
         System.out.println(invoice);
 
