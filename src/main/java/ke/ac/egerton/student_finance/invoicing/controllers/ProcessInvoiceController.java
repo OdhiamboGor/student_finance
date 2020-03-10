@@ -32,6 +32,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.awt.*;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +153,7 @@ public class ProcessInvoiceController {
         model.addAttribute("feeseg", feeseg);
 
 
-        List<Invoice> invoices =  invoiceRepository.findByAcademicYearAndCampusCodeAndSemesterCodeAndSegCodeAndStatusIsNull(acYear, campusCode, sesss, segCode);
+        List<Invoice> invoices =  invoiceRepository.findByAcademicYearAndCampusCodeAndSemesterCodeAndSegCodeAndApprovedFalseAndStatusIsNull(acYear, campusCode, sesss, segCode);
 
 
         //Get sum of amount and put commas
@@ -161,7 +162,7 @@ public class ProcessInvoiceController {
         String total = numberFormat.format(totalAmount);
         model.addAttribute("total", total);
 
-        int rec = invoices.size();
+        //int rec = invoices.size();
         //System.out.print(rec);
 
         //Check if list is empty
@@ -176,29 +177,24 @@ public class ProcessInvoiceController {
         return "invoicing/processInvoices/processInvoiceResultForm";
     }
 
-  /*  @RequestMapping(path = "updateInvoice", method = RequestMethod.POST)
-    @ResponseBody
-    public String updateInvoice(@RequestParam  List<Long> id, Model model){
-
-    System.out.println(id);
-
-        return "redirect:/invoicing/processInvoices/invoicesProcess";
-    }*/
-
-
     @RequestMapping(path = "updateInvoice", method = RequestMethod.POST)
-    public String updateInvoice( Model model,Invoice invoice ,BindingResult result,@RequestParam("ids[]") List<Long> ids[]) {
+    public String updateInvoice( Model model,Invoice invoice ,BindingResult result,@RequestParam("ids[]") Long ids[]) {
         ArrayList<ArrayList<Invoice>> selectedInvoice = new ArrayList<ArrayList<Invoice>>();
 
-        for (List<Long> id : ids) {
-            if (id != null) {
-                List<Invoice> inv = invoiceRepository.Id(id); // This method should get list of invoices as per row
+        for (Long id : ids) {
+            //System.out.println(id);
+
+            Invoice selected = invoiceRepository.findOne(id);
+                /*List<Invoice> inv = invoiceRepository.Id(id); // This method should get list of invoices as per row
                 selectedInvoice.add((ArrayList<Invoice>) inv);
-                int no = inv.size();
-                //System.out.println(no);
-                System.out.println(selectedInvoice);
-            }
+                selectedInvoice.iterator().hasNext();*/
+                selected.setApproved(true);
+                invoiceRepository.save(selected);
+
         }
+
+        /*System.out.println(selectedInvoice.size());
+        System.out.println(selectedInvoice);*/
         return "redirect:/invoicing/processInvoices/processInvoiceForm";
     }
 }
