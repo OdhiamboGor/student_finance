@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class BatchFilter {
+    private String batchNo;
     private String batchDescription;
     private Date batchDate;
     private BigDecimal amount;
@@ -16,6 +17,14 @@ public class BatchFilter {
     private String staffId;
 
     public BatchFilter() {
+    }
+
+    public String getBatchNo() {
+        return batchNo;
+    }
+
+    public void setBatchNo(String batchNo) {
+        this.batchNo = batchNo;
     }
 
     public String getBatchDescription() {
@@ -92,8 +101,9 @@ public class BatchFilter {
 
     @Override
     public String toString() {
-        return "BatchFilters{" +
-                "batchDescription='" + batchDescription + '\'' +
+        return "BatchFilter{" +
+                "batchNo=" + batchNo +
+                ", batchDescription='" + batchDescription + '\'' +
                 ", batchDate=" + batchDate +
                 ", amount=" + amount +
                 ", status=" + status +
