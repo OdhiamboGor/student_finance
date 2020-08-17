@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
     List<Invoice> findBySemesterCodeAndCampusCodeAndProgrammeCodeAndAcademicYearAndChtCodeAndSegCode(String sesss, String campusCode,String program, String acYear, String cHort, String fseg);

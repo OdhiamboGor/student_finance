@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <title>Cancel Receipt</title>
-
+    <link th:href="@{/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet" type="text/css"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
 </head>
 <body>
     <div>
@@ -16,7 +22,10 @@
                 <div class="row">
                 <div class="form-group col-sm-4">
                     <label>Receipt Number:</label>
-                    <input type="text" name="receiptNumber" id="receiptNumber"/>
+                    <select th:id="receiptNumber" th:name="receiptNumber"  class="form-control" >
+
+                        <option value="">...</option>
+                    </select>
                     <input type = "submit" name = "search" id="search" value="Search" />
                 </div>
                 </div>
@@ -124,7 +133,44 @@
 
             </form>
         </div>
-    </div>
+        <div layout:fragment="scripts">
+            <script th:src="@{/node_modules/select2/dist/js/select2.min.js}" type="text/javascript"></script>
+            <a class="hidden" th:href="@{/reports/receipt}" id="receipt-url"></a>
+            <script>
 
+                $('#receiptNumber').select2({
+                    placeholder: 'Type to search',
+                    ajax: {
+                        url: $('#receipt-url').attr('href'),
+                        delay: 200,
+                        dataType: 'json',
+                        data: function (params) {
+                            return {
+                                search: params.term,
+                                page: params.page || 1
+                            }
+                        },
+                        processResults: function (response) {
+                            var documents = response.content.map(function (receipt) {
+                                return {
+                                    id: receipt.receiptNumber,
+                                    text: receipt.receiptNumber + ' : ' + receipt.receiptFrom
+                                }
+                            });
+
+                            return {
+                                results: documents,
+                                pagination: {more: !response.last}
+                            };
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
+                    },
+                    minimumInputLength: 1
+                });
+            </script>
+    </div>
+    </div>
 </body>
 </html>

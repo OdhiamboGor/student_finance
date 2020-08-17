@@ -10,113 +10,134 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "SFRCDTLS")
-public class VefiryDocuments extends AuditableEntity {
+@Table(name = "SFOBL")
+public class VerifyDocuments extends AuditableEntity {
 
-    @Id
-    @GeneratedValue(generator = "SFRCDTLS")
-    @GenericGenerator(name = "SFRCDTLS", strategy = IncrementalIdGenerator.STRATEGY_NAME)
-    private  Long id;
-    @Column(name = "BATCHID")
-    private Long batchId;
-    @Column(name = "RCNO")
+  /*
+    @GeneratedValue(generator = "SFOBL")
+    @GenericGenerator(name = "SFOBL", strategy = IncrementalIdGenerator.STRATEGY_NAME)
+    private Long id;
+*/
+    @Column(name="BATCHNO")
     @NotNull
-    private String rcNo;
-    @Column(name = "IDCUST")
+    private Long batchNo;
+    @Column(name="BATCHDESC")
+    @NotNull
+    private String batchDescription;
+    @Column(name="ENTRY")
+    @NotNull
+    private Integer entryNo;
+    @Column(name="IDCUST")
     @NotNull
     private String customerId;
-    @Column(name = "AMOUNT")
+    @Column(name="SOURCE")
     @NotNull
-    private BigDecimal amount;
-    @Column(name = "RCDATEF")
+    private String source;
+    @Column(name="ENTRYDATE")
     @NotNull
-    private Date receiptDate;
-    @Column(name = "RCDATEUF")
+    private Date entryDate;
+    @Column(name="ENTRYTOTAL")
     @NotNull
-    private Integer receipDate;
-    @Column(name = "SEGCODE")
+    private BigDecimal entryTotal;
+    @Id
+    @Column(name="DOCNO")
     @NotNull
-    private String segmentCode;
-    @Column(name = "SEGDESC")
-    private String segmentDescription;
-    @Column(name = "REVACCT")
-    private String revAccount;
-    @Column(name = "CBAR")
-    private String cBar;
-    @Column(name = "ACADEMICYEAR")
-    private String academicYear;
-    @Column(name = "SEMSESSIONCODE")
-    private String semesterSessionCode;
-    @Column(name = "YEARCODE")
-    private String yearCode;
-    @Column(name = "PERIOD")
-    private String period;
-    @Column(name = "APPTO")
-    private String appto;
-    @Column(name = "RECFROM")
-    private String receivedFrom;
-    @Column(name = "ACCOUNT")
-    private String account;
-    @Column(name = "PREPAYMENT")
-    private String prepayment;
-    @Column(name = "POSTED")
-    private Boolean posted;
-    @Column(name = "RCSTATUS")
-    private String status;
-    @Column(name = "ACMMPOSTED")
-    private Integer acmmPosted;
-    @Column(name = "HMCUR")
+    private String documentNumber;
+    @Column(name="DOCTYPE")
+    @NotNull
+    private String documentType;
+    @Column(name="REFERENCE")
+    @NotNull
+    private String reference;
+    @Column(name="GLPOST")
+    private Integer glPost;
+    @Column(name="SECTIONCODE")
+    private String sectionCode;
+    @Column(name="DRACCT")
+    private String drAccount;
+    @Column(name="BKACCT")
+    private String bkAccount;
+    @Column(name="BANKCODE")
+    private String bankCode;
+    @Column(name="HMCUR")
     private String homeCurrency;
-    @Column(name = "HMAMT")
+    @Column(name="HMAMT")
     private BigDecimal homeAmount;
-    @Column(name = "SRCCUR")
-    private String srcCurrency;
-    @Column(name = "SRCAMT")
-    private BigDecimal srcAmount;
-    @Column(name = "EXCHRATE")
-    private BigDecimal exchangedRate;
-    @Column(name = "REVACCTGL")
-    private String reverseAccountGL;
-    @Column(name = "STRCODE")
-    private String stringCode;
-    @Column(name = "ACCSETCODE")
+    @Column(name="SRCCUR")
+    private String sourceCurrency;
+    @Column(name="SRCAMT")
+    private BigDecimal sourceAmount;
+    @Column(name="EXCHRATE")
+    private BigDecimal exchangeRate;
+    @Column(name="FYCODE")
+    private Integer financialYearCode;
+    @Column(name="FYPERIOD")
+    private Integer getFinancialYearPeriod;
+    @Column(name="ACCSETCODE")
     private String accountSetCode;
-    @Column(name = "ACCSETCTRL")
-    private String accontSetControl;
-    @Column(name = "ACCTGLCTRL")
+    @Column(name="CATEGORYCODE")
+    private String categoryCode;
+    @Column(name="STUDYMETHODCODE")
+    private String studyMethodCode;
+    @Column(name="PRCODE")
+    private String programmeCode;
+    @Column(name="CHTCODE")
+    private String chtCode;
+    @Column(name="ACADLEVELCODE")
+    private String academicLevelCode;
+    @Column(name="CAMPUSCODE")
+    private String campusCode;
+    @Column(name="DEPARTMENTCODE")
+    private String departmentCode;
+    @Column(name="SEQ")
+    private Long sequence;
+    @Column(name="ACCTGLCTRL")
     private String accountGLControl;
-    @Column(name = "ACCSETSTRCODE")
-    private String accountSetStringCode;
-    @Column(name = "ACCTEXISTS")
-    private Boolean accountExists;
-    @Column(name = "EXPD")
-    private Boolean expired;
+    @Column(name="STRCODE")
+    private String strCode;
+    @Column(name="STUDENTNUMBER")
+    @NotNull
+    private String studentNumber;
+    @Column(name="DOCSTATUS")
+    private Boolean documentStatus;
+    @Column(name="ACCTEXISTS")
+    private Boolean accountExist;
+    @Column(name="UPDATED")
+    private Boolean updated;
 
-    public VefiryDocuments() {
+    public VerifyDocuments() {
     }
 
-    public Long getId() {
+  /*  public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }*/
+
+    public Long getBatchNo() {
+        return batchNo;
     }
 
-    public Long getBatchId() {
-        return batchId;
+    public void setBatchNo(Long batchNo) {
+        this.batchNo = batchNo;
     }
 
-    public void setBatchId(Long batchId) {
-        this.batchId = batchId;
+    public String getBatchDescription() {
+        return batchDescription;
     }
 
-    public String getRcNo() {
-        return rcNo;
+    public void setBatchDescription(String batchDescription) {
+        this.batchDescription = batchDescription;
     }
 
-    public void setRcNo(String rcNo) {
-        this.rcNo = rcNo;
+    public Integer getEntryNo() {
+        return entryNo;
+    }
+
+    public void setEntryNo(Integer entryNo) {
+        this.entryNo = entryNo;
     }
 
     public String getCustomerId() {
@@ -127,148 +148,92 @@ public class VefiryDocuments extends AuditableEntity {
         this.customerId = customerId;
     }
 
-    public BigDecimal getAmount() {
-        return amount;
+    public String getSource() {
+        return source;
     }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public Date getReceiptDate() {
-        return receiptDate;
+    public Date getEntryDate() {
+        return entryDate;
     }
 
-    public void setReceiptDate(Date receiptDate) {
-        this.receiptDate = receiptDate;
+    public void setEntryDate(Date entryDate) {
+        this.entryDate = entryDate;
     }
 
-    public Integer getReceipDate() {
-        return receipDate;
+    public BigDecimal getEntryTotal() {
+        return entryTotal;
     }
 
-    public void setReceipDate(Integer receipDate) {
-        this.receipDate = receipDate;
+    public void setEntryTotal(BigDecimal entryTotal) {
+        this.entryTotal = entryTotal;
     }
 
-    public String getSegmentCode() {
-        return segmentCode;
+    public String getDocumentNumber() {
+        return documentNumber;
     }
 
-    public void setSegmentCode(String segmentCode) {
-        this.segmentCode = segmentCode;
+    public void setDocumentNumber(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
-    public String getSegmentDescription() {
-        return segmentDescription;
+    public String getDocumentType() {
+        return documentType;
     }
 
-    public void setSegmentDescription(String segmentDescription) {
-        this.segmentDescription = segmentDescription;
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
     }
 
-    public String getRevAccount() {
-        return revAccount;
+    public String getReference() {
+        return reference;
     }
 
-    public void setRevAccount(String revAccount) {
-        this.revAccount = revAccount;
+    public void setReference(String reference) {
+        this.reference = reference;
     }
 
-    public String getcBar() {
-        return cBar;
+    public Integer getGlPost() {
+        return glPost;
     }
 
-    public void setcBar(String cBar) {
-        this.cBar = cBar;
+    public void setGlPost(Integer glPost) {
+        this.glPost = glPost;
     }
 
-    public String getAcademicYear() {
-        return academicYear;
+    public String getSectionCode() {
+        return sectionCode;
     }
 
-    public void setAcademicYear(String academicYear) {
-        this.academicYear = academicYear;
+    public void setSectionCode(String sectionCode) {
+        this.sectionCode = sectionCode;
     }
 
-    public String getSemesterSessionCode() {
-        return semesterSessionCode;
+    public String getDrAccount() {
+        return drAccount;
     }
 
-    public void setSemesterSessionCode(String semesterSessionCode) {
-        this.semesterSessionCode = semesterSessionCode;
+    public void setDrAccount(String drAccount) {
+        this.drAccount = drAccount;
     }
 
-    public String getYearCode() {
-        return yearCode;
+    public String getBkAccount() {
+        return bkAccount;
     }
 
-    public void setYearCode(String yearCode) {
-        this.yearCode = yearCode;
+    public void setBkAccount(String bkAccount) {
+        this.bkAccount = bkAccount;
     }
 
-    public String getPeriod() {
-        return period;
+    public String getBankCode() {
+        return bankCode;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
-    }
-
-    public String getAppto() {
-        return appto;
-    }
-
-    public void setAppto(String appto) {
-        this.appto = appto;
-    }
-
-    public String getReceivedFrom() {
-        return receivedFrom;
-    }
-
-    public void setReceivedFrom(String receivedFrom) {
-        this.receivedFrom = receivedFrom;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public void setAccount(String account) {
-        this.account = account;
-    }
-
-    public String getPrepayment() {
-        return prepayment;
-    }
-
-    public void setPrepayment(String prepayment) {
-        this.prepayment = prepayment;
-    }
-
-    public Boolean getPosted() {
-        return posted;
-    }
-
-    public void setPosted(Boolean posted) {
-        this.posted = posted;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Integer getAcmmPosted() {
-        return acmmPosted;
-    }
-
-    public void setAcmmPosted(Integer acmmPosted) {
-        this.acmmPosted = acmmPosted;
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
     }
 
     public String getHomeCurrency() {
@@ -287,44 +252,44 @@ public class VefiryDocuments extends AuditableEntity {
         this.homeAmount = homeAmount;
     }
 
-    public String getSrcCurrency() {
-        return srcCurrency;
+    public String getSourceCurrency() {
+        return sourceCurrency;
     }
 
-    public void setSrcCurrency(String srcCurrency) {
-        this.srcCurrency = srcCurrency;
+    public void setSourceCurrency(String sourceCurrency) {
+        this.sourceCurrency = sourceCurrency;
     }
 
-    public BigDecimal getSrcAmount() {
-        return srcAmount;
+    public BigDecimal getSourceAmount() {
+        return sourceAmount;
     }
 
-    public void setSrcAmount(BigDecimal srcAmount) {
-        this.srcAmount = srcAmount;
+    public void setSourceAmount(BigDecimal sourceAmount) {
+        this.sourceAmount = sourceAmount;
     }
 
-    public BigDecimal getExchangedRate() {
-        return exchangedRate;
+    public BigDecimal getExchangeRate() {
+        return exchangeRate;
     }
 
-    public void setExchangedRate(BigDecimal exchangedRate) {
-        this.exchangedRate = exchangedRate;
+    public void setExchangeRate(BigDecimal exchangeRate) {
+        this.exchangeRate = exchangeRate;
     }
 
-    public String getReverseAccountGL() {
-        return reverseAccountGL;
+    public Integer getFinancialYearCode() {
+        return financialYearCode;
     }
 
-    public void setReverseAccountGL(String reverseAccountGL) {
-        this.reverseAccountGL = reverseAccountGL;
+    public void setFinancialYearCode(Integer financialYearCode) {
+        this.financialYearCode = financialYearCode;
     }
 
-    public String getStringCode() {
-        return stringCode;
+    public Integer getGetFinancialYearPeriod() {
+        return getFinancialYearPeriod;
     }
 
-    public void setStringCode(String stringCode) {
-        this.stringCode = stringCode;
+    public void setGetFinancialYearPeriod(Integer getFinancialYearPeriod) {
+        this.getFinancialYearPeriod = getFinancialYearPeriod;
     }
 
     public String getAccountSetCode() {
@@ -335,12 +300,68 @@ public class VefiryDocuments extends AuditableEntity {
         this.accountSetCode = accountSetCode;
     }
 
-    public String getAccontSetControl() {
-        return accontSetControl;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setAccontSetControl(String accontSetControl) {
-        this.accontSetControl = accontSetControl;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
+    public String getStudyMethodCode() {
+        return studyMethodCode;
+    }
+
+    public void setStudyMethodCode(String studyMethodCode) {
+        this.studyMethodCode = studyMethodCode;
+    }
+
+    public String getProgrammeCode() {
+        return programmeCode;
+    }
+
+    public void setProgrammeCode(String programmeCode) {
+        this.programmeCode = programmeCode;
+    }
+
+    public String getChtCode() {
+        return chtCode;
+    }
+
+    public void setChtCode(String chtCode) {
+        this.chtCode = chtCode;
+    }
+
+    public String getAcademicLevelCode() {
+        return academicLevelCode;
+    }
+
+    public void setAcademicLevelCode(String academicLevelCode) {
+        this.academicLevelCode = academicLevelCode;
+    }
+
+    public String getCampusCode() {
+        return campusCode;
+    }
+
+    public void setCampusCode(String campusCode) {
+        this.campusCode = campusCode;
+    }
+
+    public String getDepartmentCode() {
+        return departmentCode;
+    }
+
+    public void setDepartmentCode(String departmentCode) {
+        this.departmentCode = departmentCode;
+    }
+
+    public Long getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Long sequence) {
+        this.sequence = sequence;
     }
 
     public String getAccountGLControl() {
@@ -351,27 +372,87 @@ public class VefiryDocuments extends AuditableEntity {
         this.accountGLControl = accountGLControl;
     }
 
-    public String getAccountSetStringCode() {
-        return accountSetStringCode;
+    public String getStrCode() {
+        return strCode;
     }
 
-    public void setAccountSetStringCode(String accountSetStringCode) {
-        this.accountSetStringCode = accountSetStringCode;
+    public void setStrCode(String strCode) {
+        this.strCode = strCode;
     }
 
-    public Boolean getAccountExists() {
-        return accountExists;
+    public String getStudentNumber() {
+        return studentNumber;
     }
 
-    public void setAccountExists(Boolean accountExists) {
-        this.accountExists = accountExists;
+    public void setStudentNumber(String studentNumber) {
+        this.studentNumber = studentNumber;
     }
 
-    public Boolean getExpired() {
-        return expired;
+    public Boolean getDocumentStatus() {
+        return documentStatus;
     }
 
-    public void setExpired(Boolean expired) {
-        this.expired = expired;
+    public void setDocumentStatus(Boolean documentStatus) {
+        this.documentStatus = documentStatus;
+    }
+
+    public Boolean getAccountExist() {
+        return accountExist;
+    }
+
+    public void setAccountExist(Boolean accountExist) {
+        this.accountExist = accountExist;
+    }
+
+    public Boolean getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Boolean updated) {
+        this.updated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return "VerifyDocuments{" +
+              /*  "id=" + id +*/
+                ", batchNo=" + batchNo +
+                ", batchDescription='" + batchDescription + '\'' +
+                ", entryNo=" + entryNo +
+                ", customerId='" + customerId + '\'' +
+                ", source='" + source + '\'' +
+                ", entryDate=" + entryDate +
+                ", entryTotal=" + entryTotal +
+                ", documentNumber='" + documentNumber + '\'' +
+                ", documentType='" + documentType + '\'' +
+                ", reference='" + reference + '\'' +
+                ", glPost=" + glPost +
+                ", sectionCode='" + sectionCode + '\'' +
+                ", drAccount='" + drAccount + '\'' +
+                ", bkAccount='" + bkAccount + '\'' +
+                ", bankCode='" + bankCode + '\'' +
+                ", homeCurrency='" + homeCurrency + '\'' +
+                ", homeAmount=" + homeAmount +
+                ", sourceCurrency='" + sourceCurrency + '\'' +
+                ", sourceAmount=" + sourceAmount +
+                ", exchangeRate=" + exchangeRate +
+                ", financialYearCode=" + financialYearCode +
+                ", getFinancialYearPeriod=" + getFinancialYearPeriod +
+                ", accountSetCode='" + accountSetCode + '\'' +
+                ", categoryCode='" + categoryCode + '\'' +
+                ", studyMethodCode='" + studyMethodCode + '\'' +
+                ", programmeCode='" + programmeCode + '\'' +
+                ", chtCode='" + chtCode + '\'' +
+                ", academicLevelCode='" + academicLevelCode + '\'' +
+                ", campusCode='" + campusCode + '\'' +
+                ", departmentCode='" + departmentCode + '\'' +
+                ", sequence=" + sequence +
+                ", accountGLControl='" + accountGLControl + '\'' +
+                ", strCode='" + strCode + '\'' +
+                ", studentNumber='" + studentNumber + '\'' +
+                ", documentStatus=" + documentStatus +
+                ", accountExist=" + accountExist +
+                ", updated=" + updated +
+                '}';
     }
 }

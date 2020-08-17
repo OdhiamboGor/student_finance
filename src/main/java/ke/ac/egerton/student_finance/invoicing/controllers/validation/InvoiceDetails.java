@@ -1,10 +1,7 @@
 package ke.ac.egerton.student_finance.invoicing.controllers.validation;
 
-import ke.ac.egerton.student_finance.invoicing.models.Invoice;
-
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 public class InvoiceDetails {
 

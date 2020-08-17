@@ -45,25 +45,33 @@ public class HelbImportsServiceImpl implements HelbImportsService{
             HelbImports helbImports = new HelbImports();
             if (row.getCell(0).getCellType() == Cell.CELL_TYPE_STRING){
                 helbImports.setRefNo(row.getCell(0).getStringCellValue());
+                //System.out.println(row.getCell(0).getStringCellValue());
             }
             if (row.getCell(1).getCellType() == Cell.CELL_TYPE_STRING){
                 helbImports.setFirstName(row.getCell(1).getStringCellValue());
+                //System.out.println(row.getCell(1).getStringCellValue());
             }
             if (row.getCell(2).getCellType() == Cell.CELL_TYPE_STRING){
                 helbImports.setLastName(row.getCell(2).getStringCellValue());
+                //System.out.println(row.getCell(2).getStringCellValue());
             }
             if (row.getCell(3).getCellType() == Cell.CELL_TYPE_STRING){
                 helbImports.setIdNumber(row.getCell(3).getStringCellValue());
+                //System.out.println(row.getCell(3).getStringCellValue());
             }
             if (row.getCell(4).getCellType() == Cell.CELL_TYPE_STRING){
                 helbImports.setStudentNo(row.getCell(4).getStringCellValue());
+                //System.out.println(row.getCell(4).getStringCellValue());
             }
             if (row.getCell(5).getCellType()== Cell.CELL_TYPE_STRING){
                 helbImports.setStudentNo(row.getCell(5).getStringCellValue());
+               // System.out.println(row.getCell(5).getStringCellValue());
 
             }else if(row.getCell(5).getCellType() == Cell.CELL_TYPE_NUMERIC){
                 helbImports.setAmount((int) row.getCell(5).getNumericCellValue());
+                //System.out.println(row.getCell(5).getNumericCellValue());
             }
+            helbImportsRepository.save(helbImports);
         }
         return true;
     }

@@ -34,6 +34,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -73,13 +74,16 @@ public class ReceiptController {
         return "receipting/receipts/cancelReceipt";
     }
 
-
+    //Finding Receipt using receipt number
     @RequestMapping(path="findReceipt", method = RequestMethod.GET)
-    public String getReceipt(Receipt receipt, Model model) {
+    public String getReceipt(Receipt receipt,@RequestParam("receiptNumber") String receiptNumber, Model model) {
 
-        String rcptNo = receipt.getReceiptNumber();
+        //String rcptNo = receipt.getReceiptNumber();
+        System.out.println(receiptNumber);
 
-        Receipt receipt1 = receiptRepository.findByReceiptNumber(rcptNo);
+        Receipt receipt1 = receiptRepository.findByReceiptNumber(receiptNumber);
+
+        //System.out.println(receipt1);
 
         if (receipt1 == null) {
             model.addAttribute("error", "No Record found");
@@ -89,8 +93,9 @@ public class ReceiptController {
             String cId = receipt1.getCustomerId();
 
             Student student = studentRepository.findTopByStudentNumberIgnoreCase(cId);
+
             //Setting posted to read Yes/No
-            Receipt rcpt = receiptRepository.findByReceiptNumber(rcptNo);
+            Receipt rcpt = receiptRepository.findByReceiptNumber(receiptNumber);
             int post = rcpt.getPosted();
             String pst;
             switch (post) {
@@ -107,12 +112,15 @@ public class ReceiptController {
             model.addAttribute("posts", posts);
 
             //Splitting receipt number into different parts
-            String rcptno = receipt1.getReceiptNumber();
+            //String rcptno = receipt1.getReceiptNumber();
 
-            String[] parts = rcptno.split("-");
+            String[] parts = receiptNumber.split("-");
 
             String receiptNo1 = parts[0];
             String receiptNo2 = parts[1];
+
+            //System.out.println(receiptNo1);
+            //System.out.println(receiptNo2);
 
             //Searching for bank details
             Bank bank = banksRepository.findTopByCode(receiptNo1);
@@ -142,6 +150,7 @@ public class ReceiptController {
             return "receipting/receipts/cancelReceiptResult";
         }
     }
+    //Calling verify receipt form
     @RequestMapping(path="verifyReceiptForm", method = RequestMethod.GET)
     public String verifyReceiptForm(Model model){
         List <ReceiptBatch> receiptBatch = receiptBatchRepository.findByPostFalse();
@@ -178,7 +187,7 @@ public class ReceiptController {
 
     }
 
-    @RequestMapping(path="postReceipts/{id}", method = RequestMethod.GET)
+    @RequestMapping(path="verifyReceipt/{id}", method = RequestMethod.GET)
     public String postReceipts(@PathVariable("id") Long id, VerifyReceipt verifyReceipt,BindingResult result, Model model){
 
         verifyReceipt = verifyReceiptRepository.findById(id);
@@ -189,11 +198,11 @@ public class ReceiptController {
 
         verifyReceiptService.updateReceiptStatus(posted);
 
-        System.out.println(verifyReceipt);
+       // System.out.println(verifyReceipt);
 
-        System.out.println(posted);
+        //System.out.println(posted);
         
-        return "redirect:/receipting/receipts/verifyReceipt";
+        return "redirect:/receipting/receipt/verifyReceiptForm";
     }
 
 }

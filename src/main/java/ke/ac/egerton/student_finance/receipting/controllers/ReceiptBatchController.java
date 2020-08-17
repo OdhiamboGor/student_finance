@@ -158,7 +158,7 @@ public class ReceiptBatchController {
         ReceiptBatch receiptBatch = receiptBatchRepository.findOne(id);
 
         String bId = receiptBatch.getId();
-        System.out.println(bId);
+        //System.out.println(bId);
 
         String date = details.getBatchDate();
 

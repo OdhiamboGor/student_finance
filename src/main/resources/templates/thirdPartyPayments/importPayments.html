@@ -54,6 +54,13 @@
                 "MR1":"MANDERA NORTH","EMDR1":"EMURUA DIKIRR","BNSA-1":"BANISA CDF","CDF":"TRBJ1","L01":"LAFEY","E01":"EMBAKASI CENTRAL","MAT01":"MATUNGULU CDF","RYS1":"ROYSAMBU","DG1":"DAGORETTI NORTH",
                 "LGT1":"LANGATA","TB1":"TARBAJ","NH1":"NANDI HILLS","KWZ1":"KIBWEZI WEST","LAD1":"LUANDA","CSMEI-1":"CHESUMEI-CDF","TSS":"Non Government"}};
     </script>
+    <link th:href="@{/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet" type="text/css"/>
+    <style>
+        .select2-container--default .select2-selection--single {
+            height: 34px !important;
+            padding-top: 2px;
+        }
+    </style>
 </head>
 <body>
     <div>
@@ -245,7 +252,44 @@
                 document.getElementById("edescription").value = t;
             }
         </script>
+        <div layout:fragment="scripts">
+            <script th:src="@{/node_modules/select2/dist/js/select2.min.js}" type="text/javascript"></script>
+            <a class="hidden" th:href="@{/reports/receiptBatch}" id="receiptBatch-url"></a>
+            <script>
 
+                $('#batchNo').select2({
+                    placeholder: 'Type to search',
+                    ajax: {
+                        url: $('#receiptBatch-url').attr('href'),
+                        delay: 200,
+                        dataType: 'json',
+                        data: function (params) {
+                            return {
+                                search: params.term,
+                                page: params.page || 1
+                            }
+                        },
+                        processResults: function (response) {
+                            var documents = response.content.map(function (receiptBatch) {
+                                return {
+                                    id: receiptBatch.batchId,
+                                    text: receiptBatch.batchId + ' : ' + receiptBatch.batchDescription
+                                }
+                            });
+
+                            return {
+                                results: documents,
+                                pagination: {more: !response.last}
+                            };
+                        },
+                        escapeMarkup: function (markup) {
+                            return markup;
+                        }
+                    },
+                    minimumInputLength: 1
+                });
+            </script>
+        </div>
 </div>
 </div>
 </body>

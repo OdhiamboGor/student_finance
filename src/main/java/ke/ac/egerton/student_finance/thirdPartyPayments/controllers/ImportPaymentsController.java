@@ -16,12 +16,22 @@ import ke.ac.egerton.student_finance.thirdPartyPayments.repositories.HelbImports
 import ke.ac.egerton.student_finance.thirdPartyPayments.repositories.ThirdPartyProcessesRepository;
 import ke.ac.egerton.student_finance.thirdPartyPayments.services.HelbImportsService;
 import ke.ac.egerton.student_finance.thirdPartyPayments.services.ThirdPartyPaymentService;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -43,7 +53,7 @@ public class ImportPaymentsController {
     SessionRepository sessionRepository;
     @Autowired
     HelbImportsRepository helbImportsRepository;
-    
+
     //Autowired Services
     @Autowired
     ThirdPartyPaymentService thirdPartyPaymentService;
@@ -52,12 +62,12 @@ public class ImportPaymentsController {
 
 
     @RequestMapping(value = "importForm", method = RequestMethod.GET)
-    public String importPayments(Model model){
+    public String importPayments(Model model) {
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("category", categories);
 
-        List<ThirdParty> thirdParty= thirdPartyRepository.findAll();
-        model.addAttribute("thirdParty",thirdParty);
+        List<ThirdParty> thirdParty = thirdPartyRepository.findAll();
+        model.addAttribute("thirdParty", thirdParty);
 
 
         List<Batches> batches = batchRepository.findByPostFalse();
@@ -81,24 +91,20 @@ public class ImportPaymentsController {
         return thirdPartyPaymentService.loadThirdPartyProcess(code);
 
     }
-    /*@RequestMapping(value = "thirdParties/{code}", method = RequestMethod.GET)
-    public @ResponseBody  List<ThirdParty> getAllThirdParties(@PathVariable("code") String code) {
-        //return thirdPartyRepository.findByCode(code);
-        return null;
 
-    }*/
-    @RequestMapping(value = "importHelb", method = RequestMethod.POST)
-    public String importHelb(@ModelAttribute HelbImports helbImports, RedirectAttributes redirectAttributes){
+      @RequestMapping(value = "importHelb", method = RequestMethod.POST)
+      public String importHelb(@ModelAttribute HelbImports helbImports, RedirectAttributes redirectAttributes){
 
-        boolean isFlag = helbImportsService.uploadHelb(helbImports.getFile());
-        if(isFlag){
-            redirectAttributes.addFlashAttribute("seccessmessage", "File uploaded successfully");
-        }
-        else{
-            redirectAttributes.addFlashAttribute("errormessage", "File not uploaded  successfully");
-        }
+          boolean isFlag = helbImportsService.uploadHelb(helbImports.getFile());
+          if(isFlag){
+              redirectAttributes.addFlashAttribute("successmessage", "File uploaded successfully");
+          }
+          else{
+              redirectAttributes.addFlashAttribute("errormessage", "File not uploaded  successfully");
+          }
 
-        return "redirect:/thirdPartyPayments/importPayments/importForm";
+          return "redirect:/thirdPartyPayments/importPayments/importForm";
 
-    }
+      }
+
 }

@@ -66,7 +66,7 @@ public class CancelReceiptController {
 
         //Setting receipt type
         String rType = details.getReceiptType();
-        System.out.println(rType);
+        //System.out.println(rType);
         cancelReceipt.setReceiptType(rType);
 
         //Getting student number
@@ -74,6 +74,7 @@ public class CancelReceiptController {
         String custId = details.getCustomerId();
 
         Student student = studentsRepository.findByAccountNumber(details.getCustomerId());
+        System.out.println(student);
         cancelReceipt.setStudentNumber(student.getStudentNumber());
         String stdNo = student.getStudentNumber();
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Process Invoice Form</title>
-    <link th:href="@{/resources/node_modules/select2/dist/css/select2.min.css}" rel="stylesheet"/>
+    <link th:href="@{/node_modules/select2/dist/js/select2.min.js}" rel="stylesheet"/>
     <style>
         .select2-container--default .select2-selection--single {
             height: 34px !important;
@@ -68,10 +68,10 @@
                     </select>
                 </div>
                 <div class="form-group col-sm-4">
-                    <label>Invoice Type</label><br/>
+                    <label>Invoice Type</label>
                     <select class="form-control"  th:id="segCode" th:name="segCode" required="required">
-                        <option value="">---------</option>
-                        <option th:each="fee : ${feeseg}" th:value="${fee.code}" th:text="${fee.description}" />
+                        <option value="">...</option>
+                        <option th:each="fee : ${feeseg}" th:value="${fee.code}" th:text="${fee.code} + ' : ' + ${fee.description}"></option>
                     </select>
                 </div>
 
@@ -157,6 +157,45 @@
 
         </form>
     </div>
+
+</div>
+<div layout:fragment="scripts">
+    <script th:src="@{/node_modules/select2/dist/js/select2.min.js}" type="text/javascript"></script>
+    <a class="hidden" th:href="@{/reports/feeSegment}" id="feeSegment-url"></a>
+    <script>
+
+        $('#segCode').select2({
+            placeholder: 'Type to search',
+            ajax: {
+                url: $('#feeSegment-url').attr('href'),
+                delay: 200,
+                dataType: 'json',
+                data: function (params) {
+                    return {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+                },
+                processResults: function (response) {
+                    var segments = response.content.map(function (feeSegment) {
+                        return {
+                            id: feeSegment.code,
+                            text: feeSegment.code + ' : ' + feeSegment.description
+                        }
+                    });
+
+                    return {
+                        results: segments,
+                        pagination: {more: !response.last}
+                    };
+                },
+                escapeMarkup: function (markup) {
+                    return markup;
+                }
+            },
+            minimumInputLength: 1
+        });
+    </script>
 </div>
 </body>
 

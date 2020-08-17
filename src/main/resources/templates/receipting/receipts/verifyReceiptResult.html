@@ -72,7 +72,7 @@
                                 <td class="item" th:text="${verifyReceipt.depositNo}"></td>
                                 <td class="item" th:text="${verifyReceipt.depositDate}"></td>
                                 <td class="item" th:text="${verifyReceipt.amount}"></td>
-                                <td><a th:href="@{'/receipting/receipt/postReceipts/{id}'(id=${verifyReceipt.id})}">
+                                <td><a th:href="@{'/receipting/receipt/verifyReceipt/{id}'(id=${verifyReceipt.id})}">
                                     <button class="btn btn-sm btn-success"><span class="fa fa-edit"></span>Post</button>
                                 </a> </td>
                             </tr>
